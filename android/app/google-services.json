@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "351207283696",
+    "project_id": "cloudmotors-e2555",
+    "storage_bucket": "cloudmotors-e2555.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351207283696:android:8c0ccb1b13019ca3ab1b35",
+        "android_client_info": {
+          "package_name": "com.saidmo.cloudmotors"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351207283696-i999pk82dbujbckis4csmh01rdqt4876.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArpWoRrvymRNkQk5K77uJ0W4c10kzxgZ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351207283696-i999pk82dbujbckis4csmh01rdqt4876.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,218 @@
+import 'package:CloudMotors/constants/color_constant.dart';
+import 'package:CloudMotors/constants/constant_style.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'otp.dart';
+
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
+
+  @override
+  _RegisterState createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      backgroundColor: Color(0xfff7f6fb),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(25, 35, 0, 0),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Icon(
+                    Icons.arrow_back,
+                    size: 32,
+                    color: Colors.black54,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: mTitleColor,
+                shape: BoxShape.circle,
+              ),
+              child: Image.asset(
+                'assets/images/illustration-2.png',
+                width: Get.width,
+                height: Get.height / 3.5,
+              ),
+            ),
+            SizedBox(
+              height: Get.height / 50,
+            ),
+            Text(
+              'Registration',
+              style: TextStyle(
+                fontSize: 26,
+                fontFamily: tface,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: Get.height / 50,
+            ),
+            Text(
+              "Add your phone number . we'll send you a verification code",
+              softWrap: true,
+              maxLines: 5,
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: tface,
+                fontWeight: FontWeight.bold,
+                color: Colors.black38,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 28,
+            ),
+            Container(
+              padding: EdgeInsets.all(28),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Column(
+                children: [
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: "Your name",
+                      hintStyle: TextStyle(fontFamily: tface, fontSize: 18),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                          borderRadius: BorderRadius.circular(10)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                          borderRadius: BorderRadius.circular(10)),
+                      prefixIcon: Icon(
+                        Icons.person,
+                        color: Colors.green,
+                        size: 32,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: Get.height / 50,
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: "Email adress",
+                      hintStyle: TextStyle(
+                        fontFamily: tface,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                          borderRadius: BorderRadius.circular(10)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                          borderRadius: BorderRadius.circular(10)),
+                      prefixIcon: Icon(
+                        Icons.email,
+                        color: Colors.green,
+                        size: 32,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: Get.height / 50,
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    decoration: InputDecoration(
+                      hintText: "Phone Number",
+                      hintStyle: TextStyle(
+                        fontFamily: tface,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                          borderRadius: BorderRadius.circular(10)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black12),
+                          borderRadius: BorderRadius.circular(10)),
+                      prefix: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Text(
+                          '(+91)',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.phone,
+                        color: Colors.green,
+                        size: 32,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 22,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => Otp()),
+                        );
+                      },
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all<Color>(Colors.white),
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(mTitleColor),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(14.0),
+                        child: Text(
+                          'Register',
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontFamily: tface,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
