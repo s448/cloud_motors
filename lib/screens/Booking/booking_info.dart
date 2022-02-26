@@ -149,32 +149,34 @@ class _BookingInfoState extends State<BookingInfo> {
                         5.0,
                       ),
                     ),
-                    child: DropdownButton<String>(
-                      value: dropdownValue,
-                      isExpanded: true,
-                      hint: Text("Select your Car Model"),
-                      // icon: const Icon(Icons.arrow_downward),
-                      elevation: 16,
-                      style: const TextStyle(color: mBlueColor),
-                      // underline: Container(
-                      //   height: 2,
-                      //   color: mBlueColor,
-                      // ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownValue = newValue!;
-                        });
-                      },
-                      items: <String>['Hatchback & Sedan', 'Suv']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: mServiceTitleStyle,
-                          ),
-                        );
-                      }).toList(),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: dropdownValue,
+                        isExpanded: true,
+                        hint: Text("Select car type"),
+                        // icon: const Icon(Icons.arrow_downward),
+                        elevation: 16,
+                        style: const TextStyle(color: mBlueColor),
+                        // underline: Container(
+                        //   height: 2,
+                        //   color: mBlueColor,
+                        // ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                          });
+                        },
+                        items: <String>['Hatchback & Sedan', 'Suv']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: mServiceTitleStyle,
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     ),
                   ),
                 ],
@@ -185,14 +187,21 @@ class _BookingInfoState extends State<BookingInfo> {
             ),
             ConstrainedBox(
               constraints: BoxConstraints(minWidth: double.infinity),
-              child: MaterialButton(
-                color: Colors.green,
+              child: ElevatedButton(
                 onPressed: () {},
                 child: Text(
                   "NEXT",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 26,
+                  ),
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(mBlueColor),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                 ),
               ),

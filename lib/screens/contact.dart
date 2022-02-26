@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../constants/color_constant.dart';
 import '../constants/constant_style.dart';
-import '../models/popular_destination_model.dart';
 
 class contactPage extends StatefulWidget {
   const contactPage({Key? key}) : super(key: key);
@@ -17,14 +16,14 @@ class _contactPageState extends State<contactPage> {
       stops: [0.025, 0.02],
       colors: [mBlueColor, Colors.white],
     ),
-    // border: Border.all(color: Colors.black),
+    border: Border.all(color: mTitleColor),
     color: mFillColor,
     borderRadius: BorderRadius.circular(15.0),
   );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade400,
+      backgroundColor: Colors.grey.shade200,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -77,40 +76,6 @@ class _contactPageState extends State<contactPage> {
                   SizedBox(
                     height: 3,
                   ),
-                  Container(
-                    padding: EdgeInsets.all(5.0),
-                    margin: EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: mBlueColor),
-                      color: mFillColor,
-                      borderRadius: BorderRadius.circular(7.0),
-                    ),
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "you can also view our location on GPS",
-                            style: TextStyle(fontFamily: tface, fontSize: 18),
-                          ),
-                        ),
-                        MaterialButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Location",
-                            style: TextStyle(
-                                color: mFillColor,
-                                fontFamily: tface,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          color: mBlueColor,
-                        )
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -122,7 +87,7 @@ class _contactPageState extends State<contactPage> {
                 height: 37,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  //  border: Border.all(color: Colors.black),
+                  border: Border.all(color: mTitleColor),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
@@ -156,7 +121,7 @@ class _contactPageState extends State<contactPage> {
                 height: 37,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  //  border: Border.all(color: Colors.black),
+                  border: Border.all(color: mTitleColor),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(
@@ -190,7 +155,7 @@ class _contactPageState extends State<contactPage> {
                 height: 37,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  //     border: Border.all(color: Colors.black),
+                  border: Border.all(color: mTitleColor),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Row(

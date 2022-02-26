@@ -1,5 +1,7 @@
 import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/constants/constant_style.dart';
+import 'package:CloudMotors/controllers/auth_controller.dart';
+import 'package:CloudMotors/screens/login_signup/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -83,14 +85,23 @@ class ProfilePage extends StatelessWidget {
                     height: Get.height / 15,
                     width: double.infinity,
                     color: mBackgroundColor,
-                    child: Text(
-                      "Said Muhammad Hassan",
-                      style: TextStyle(
-                        color: mTitleColor,
-                        fontFamily: tface,
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.person),
+                        VerticalDivider(
+                          thickness: 1.2,
+                          color: mTitleColor,
+                        ),
+                        Text(
+                          "Said Muhammad Hassan",
+                          style: TextStyle(
+                            color: mTitleColor,
+                            fontFamily: tface,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        )
+                      ],
                     ),
                   ),
                   Container(
@@ -99,32 +110,49 @@ class ProfilePage extends StatelessWidget {
                     height: Get.height / 15,
                     width: double.infinity,
                     color: mGreyColor,
-                    child: Text(
-                      "elsaedmohassan@mail.com",
-                      style: TextStyle(
-                        color: mTitleColor,
-                        fontSize: 22,
-                        fontFamily: tface,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.email),
+                        VerticalDivider(
+                          thickness: 1.2,
+                          color: mTitleColor,
+                        ),
+                        Text(
+                          "elsaedmohassan@mail.com",
+                          style: TextStyle(
+                            color: mTitleColor,
+                            fontSize: 22,
+                            fontFamily: tface,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(8.0),
-                    alignment: Alignment.centerLeft,
-                    height: Get.height / 15,
-                    width: double.infinity,
-                    color: mBackgroundColor,
-                    child: Text(
-                      "+201557912724",
-                      style: TextStyle(
-                        color: mTitleColor,
-                        fontSize: 22,
-                        fontFamily: tface,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
+                      padding: EdgeInsets.all(8.0),
+                      alignment: Alignment.centerLeft,
+                      height: Get.height / 15,
+                      width: double.infinity,
+                      color: mBackgroundColor,
+                      child: Row(
+                        children: [
+                          Icon(Icons.phone),
+                          VerticalDivider(
+                            thickness: 1.2,
+                            color: mTitleColor,
+                          ),
+                          Text(
+                            "+201557912724",
+                            style: TextStyle(
+                              color: mTitleColor,
+                              fontSize: 22,
+                              fontFamily: tface,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      )),
                 ],
               ),
             ),
@@ -184,14 +212,18 @@ class ProfilePage extends StatelessWidget {
             ),
             ConstrainedBox(
               constraints: BoxConstraints(maxWidth: Get.width / 1.1),
-              child: MaterialButton(
-                color: Colors.red,
-                onPressed: () {},
+              child: ElevatedButton(
+                onPressed: () {
+                  AuthController()
+                      .signOut()
+                      .then((value) => print("Signout done"))
+                      .then((value) => Get.offAll(Welcome()));
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Log out",
+                      "Sign out",
                       style: TextStyle(
                           fontFamily: tface,
                           fontSize: 26,
@@ -202,6 +234,14 @@ class ProfilePage extends StatelessWidget {
                     ),
                     Icon(Icons.logout)
                   ],
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -276,35 +316,3 @@ class HeaderCurvedContainer extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
-
-
-
-//profile image
-
-/*
-Container(
-                padding: EdgeInsets.all(10.0),
-                width: MediaQuery.of(context).size.width / 3,
-                height: MediaQuery.of(context).size.width / 3,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white, width: 4),
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage('assets/icons/profile.png'),
-                  ),
-                ),
-              ),
-*/
-
-
-/*
-   CustomPaint(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-            ),
-            painter: HeaderCurvedContainer(),
-          ),
-*/

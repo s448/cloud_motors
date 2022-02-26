@@ -2,6 +2,7 @@ import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/screens/home_screen.dart';
 import 'package:CloudMotors/screens/login_signup/otp.dart';
+import 'package:CloudMotors/screens/login_signup/phone_login.dart';
 import 'package:CloudMotors/screens/newBottomNarbar.dart';
 import 'package:flutter/material.dart';
 import 'register.dart';
@@ -99,7 +100,7 @@ class _WelcomeState extends State<Welcome> {
                 constraints: BoxConstraints(minWidth: Get.width),
                 child: ElevatedButton(
                   onPressed: () {
-                    Get.to(newBottomNavrbar());
+                    Get.to(PhoneLogin());
                   },
                   style: ButtonStyle(
                     foregroundColor:

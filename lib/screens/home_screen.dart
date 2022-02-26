@@ -2,12 +2,17 @@ import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/models/carousel_model.dart';
 import 'package:CloudMotors/models/travlog_model.dart';
 import 'package:CloudMotors/screens/Booking/booking_info.dart';
+import 'package:CloudMotors/screens/PickByCategory/garage_services.dart';
+import 'package:CloudMotors/screens/PickByCategory/home_service.dart';
+import 'package:CloudMotors/screens/PickByCategory/pickup_services.dart';
+import 'package:CloudMotors/screens/PickByCategory/washing_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 import '../constants/color_constant.dart';
+import '../constants/constant_style.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -37,16 +42,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: mBackgroundColor,
-        title: Center(
-          child: Text(
-            "Cloud Motors",
-            style: TextStyle(
-              fontSize: 30,
-              fontFamily: tface,
-              color: mBlueColor,
-              fontWeight: FontWeight.bold,
-            ),
+        title: Text(
+          "Cloud Motors",
+          style: TextStyle(
+            fontSize: 30,
+            fontFamily: tface,
+            color: mBlueColor,
+            fontWeight: FontWeight.bold,
           ),
         ),
         elevation: 0,
@@ -60,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.only(left: 16, bottom: 24),
               child: Center(
                 child: Text(
-                  "Have a look at our services 👇",
+                  "Have a look at our services",
                   style: mTitleStyle,
                 ),
               ),
@@ -137,72 +141,85 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             // SizedBox(height: 16),
             Container(
-              height: 144,
+              height: Get.height / 4,
               margin: EdgeInsets.only(left: 16, right: 16),
               child: Column(
                 children: [
                   Row(
                     children: [
                       // CATEGORY 1
+                      //TODO
                       Expanded(
-                        child: Container(
-                          margin: EdgeInsets.only(right: 8),
-                          padding: EdgeInsets.only(left: 16),
-                          height: 64,
-                          decoration: BoxDecoration(
-                            color: mFillColor,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: mBorderColor, width: 1),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(Icons.home, color: mBlueColor),
-                              Padding(
-                                padding: EdgeInsets.only(left: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Home\nServices",
-                                      style: mServiceTitleStyle,
-                                    ),
-                                  ],
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(HomeS(), arguments: [travlogs1[0]]);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(right: 8),
+                            padding: EdgeInsets.only(left: 16),
+                            height: Get.height / 10,
+                            decoration: BoxDecoration(
+                              color: mFillColor,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: mBorderColor, width: 1),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(Icons.home, color: mBlueColor),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 16),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Home\nServices",
+                                        style: mServiceTitleStyle,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
 
                       // CATEGORY 2
                       Expanded(
-                        child: Container(
-                          margin: EdgeInsets.only(right: 8),
-                          padding: EdgeInsets.only(left: 16),
-                          height: 64,
-                          decoration: BoxDecoration(
-                            color: mFillColor,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: mBorderColor, width: 1),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(Icons.car_repair, color: mBlueColor),
-                              Padding(
-                                padding: EdgeInsets.only(left: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Garage\nServices",
-                                      style: mServiceTitleStyle,
-                                    ),
-                                  ],
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(GarageS(), arguments: [travlogs1[1]]);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(right: 8),
+                            padding: EdgeInsets.only(left: 16),
+                            height: Get.height / 10,
+                            decoration: BoxDecoration(
+                              color: mFillColor,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: mBorderColor, width: 1),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(Icons.car_repair, color: mBlueColor),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 16),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Garage\nServices",
+                                        style: mServiceTitleStyle,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -213,64 +230,76 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       // CATEGORY 3
                       Expanded(
-                        child: Container(
-                          margin: EdgeInsets.only(right: 8),
-                          padding: EdgeInsets.only(left: 16),
-                          height: 64,
-                          decoration: BoxDecoration(
-                            color: mFillColor,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: mBorderColor, width: 1),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(Icons.local_car_wash, color: mBlueColor),
-                              Padding(
-                                padding: EdgeInsets.only(left: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Washing\nServices",
-                                      style: mServiceTitleStyle,
-                                    ),
-                                  ],
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(WashingS(), arguments: travlogs2);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(right: 8),
+                            padding: EdgeInsets.only(left: 16),
+                            height: Get.height / 10,
+                            decoration: BoxDecoration(
+                              color: mFillColor,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: mBorderColor, width: 1),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(Icons.local_car_wash, color: mBlueColor),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 16),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Washing\nServices",
+                                        style: mServiceTitleStyle,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
 
                       // CATEGORY 4
                       Expanded(
-                        child: Container(
-                          margin: EdgeInsets.only(right: 8),
-                          padding: EdgeInsets.only(left: 16),
-                          height: 64,
-                          decoration: BoxDecoration(
-                            color: mFillColor,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: mBorderColor, width: 1),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(Icons.rv_hookup, color: mBlueColor),
-                              Padding(
-                                padding: EdgeInsets.only(left: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Pickup\nService",
-                                      style: mServiceTitleStyle,
-                                    ),
-                                  ],
+                        child: InkWell(
+                          onTap: () {
+                            Get.to(PickUpS(), arguments: travlogs3);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(right: 8),
+                            padding: EdgeInsets.only(left: 16),
+                            height: Get.height / 10,
+                            decoration: BoxDecoration(
+                              color: mFillColor,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: mBorderColor, width: 1),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(Icons.rv_hookup, color: mBlueColor),
+                                Padding(
+                                  padding: EdgeInsets.only(left: 16),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Pickup\nService",
+                                        style: mServiceTitleStyle,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -292,67 +321,52 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Container(
-              height: Get.height / 7,
-              margin: EdgeInsets.only(left: 16, right: 16),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: _callNumber,
-                          child: Container(
-                            margin: EdgeInsets.only(right: 8),
-                            padding: EdgeInsets.only(left: 16),
-                            height: 64,
-                            decoration: BoxDecoration(
-                              color: mFillColor,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: mBorderColor, width: 1),
-                            ),
-                            child: Row(
-                              children: [
-                                IconButton(
-                                    onPressed: _callNumber,
-                                    icon: Icon(
-                                      Icons.local_phone,
-                                      size: 30,
-                                      color: Colors.red,
-                                    )),
-                                Padding(
-                                  // width: Get.width,
-                                  // height: Get.height / 9,
-                                  padding: EdgeInsets.only(left: 10, right: 10),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Vehicle Broke Down...??",
-                                        style: mServiceTitleStyle,
-                                      ),
-                                      Flexible(
-                                        child: Text(
-                                          "CLICK HERE \nto give us a call and we will pickup your vehicle",
-                                          style: mServiceSubtitleStyle,
-                                          overflow: TextOverflow.fade,
-                                          softWrap: false,
-                                          maxLines: 4,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+            InkWell(
+              onTap: _callNumber,
+              child: Container(
+                margin: EdgeInsets.all(4.0),
+                padding: EdgeInsets.all(8.0),
+                // height: Get.,
+                decoration: BoxDecoration(
+                  color: mFillColor,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: mBorderColor, width: 1),
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "Vehicle Broke Down...??",
+                      style: mServiceTitleStyle,
+                    ),
+                    IntrinsicHeight(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                              onPressed: _callNumber,
+                              icon: Icon(
+                                Icons.local_phone,
+                                size: 30,
+                                color: Colors.red,
+                              )),
+                          VerticalDivider(
+                            thickness: 2,
+                            color: mTitleColor,
+                          ),
+                          Expanded(
+                            child: Text(
+                              "CLICK HERE \nto give us a call and we will pickup your vehicle",
+                              style: mServiceSubtitleStyle,
+                              softWrap: true,
+                              overflow: TextOverflow.visible,
+                              maxLines: 4,
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(

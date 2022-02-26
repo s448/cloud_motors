@@ -31,11 +31,14 @@ var travlogsData1 = [
 ];
 
 List<TravlogModel> travlogs2 = travlogsData2
-    .map((item) => TravlogModel(
+    .map(
+      (item) => TravlogModel(
         item['name'].toString(),
         item['content'].toString(),
         item['place'].toString(),
-        item['image'].toString()))
+        item['image'].toString(),
+      ),
+    )
     .toList();
 var travlogsData2 = [
   // {
@@ -79,4 +82,26 @@ var travlogsData3 = [
     "place": "Book Now",
     "image": "assets/images/brokedown.jpg"
   },
+];
+
+List homeDetails = [
+  "Engine oil change",
+  "Oil filter change",
+  "Air filter clean",
+  "Calliper greasing",
+  "Brake pad check/replace",
+  "Door greasing",
+  "Windshield Shampoo",
+  "Light check",
+  "Coolant change",
+  "Radiator Wash",
+  "Brake fluid" "topup",
+  "Battery water topup",
+  "Suspension check",
+  "Tyre check",
+  "AC filter clean",
+  "Washing",
+  "Polish",
+  "Paper mat",
+  "Road test"
 ];
