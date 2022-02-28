@@ -2,6 +2,7 @@ import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/controllers/auth_controller.dart';
 import 'package:CloudMotors/screens/login_signup/welcome.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -93,7 +94,8 @@ class ProfilePage extends StatelessWidget {
                           color: mTitleColor,
                         ),
                         Text(
-                          "Said Muhammad Hassan",
+                          FirebaseAuth.instance.currentUser!.displayName
+                              .toString(),
                           style: TextStyle(
                             color: mTitleColor,
                             fontFamily: tface,
@@ -118,7 +120,7 @@ class ProfilePage extends StatelessWidget {
                           color: mTitleColor,
                         ),
                         Text(
-                          "elsaedmohassan@mail.com",
+                          FirebaseAuth.instance.currentUser!.email.toString(),
                           style: TextStyle(
                             color: mTitleColor,
                             fontSize: 22,
@@ -143,7 +145,8 @@ class ProfilePage extends StatelessWidget {
                             color: mTitleColor,
                           ),
                           Text(
-                            "+201557912724",
+                            FirebaseAuth.instance.currentUser!.phoneNumber
+                                .toString(),
                             style: TextStyle(
                               color: mTitleColor,
                               fontSize: 22,
@@ -216,7 +219,7 @@ class ProfilePage extends StatelessWidget {
                 onPressed: () {
                   AuthController()
                       .signOut()
-                      .then((value) => print("Signout done"))
+                      .then((value) => AuthController().authenticated = false)
                       .then((value) => Get.offAll(Welcome()));
                 },
                 child: Row(

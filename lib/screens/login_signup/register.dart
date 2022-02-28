@@ -1,7 +1,9 @@
 import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/controllers/auth_controller.dart';
+import 'package:CloudMotors/screens/newBottomNarbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import 'otp.dart';
@@ -24,7 +26,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Color(0xfff7f6fb),
+      backgroundColor: mBackgroundColor,
       body: GetBuilder<AuthController>(
         init: AuthController(),
         builder: (authController) => SingleChildScrollView(
@@ -52,8 +54,8 @@ class _RegisterState extends State<Register> {
                   color: mTitleColor,
                   shape: BoxShape.circle,
                 ),
-                child: Image.asset(
-                  'assets/images/illustration-2.png',
+                child: SvgPicture.asset(
+                  'assets/illustrations/1.svg',
                   width: Get.width,
                   height: Get.height / 3.5,
                 ),
@@ -62,7 +64,7 @@ class _RegisterState extends State<Register> {
                 height: Get.height / 50,
               ),
               Text(
-                'Registration',
+                'Register',
                 style: TextStyle(
                   fontSize: 26,
                   fontFamily: tface,
@@ -72,18 +74,18 @@ class _RegisterState extends State<Register> {
               SizedBox(
                 height: Get.height / 50,
               ),
-              Text(
-                "Add your phone number . we'll send you a verification code",
-                softWrap: true,
-                maxLines: 5,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: tface,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black38,
-                ),
-                textAlign: TextAlign.center,
-              ),
+              // Text(
+              //   "Add your phone number . we'll send you a verification code",
+              //   softWrap: true,
+              //   maxLines: 5,
+              //   style: TextStyle(
+              //     fontSize: 20,
+              //     fontFamily: tface,
+              //     fontWeight: FontWeight.bold,
+              //     color: Colors.black38,
+              //   ),
+              //   textAlign: TextAlign.center,
+              // ),
               SizedBox(
                 height: 28,
               ),
@@ -96,7 +98,10 @@ class _RegisterState extends State<Register> {
                 child: Column(
                   children: [
                     TextFormField(
-                      keyboardType: TextInputType.number,
+                      onChanged: ((value) {
+                        authController.getName(value);
+                      }),
+                      keyboardType: TextInputType.name,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -121,7 +126,10 @@ class _RegisterState extends State<Register> {
                       height: Get.height / 50,
                     ),
                     TextFormField(
-                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        authController.getEmail(value);
+                      },
+                      keyboardType: TextInputType.emailAddress,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -154,7 +162,7 @@ class _RegisterState extends State<Register> {
                         print(authController.phone);
                         authController.update();
                       }),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.phone,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -193,9 +201,19 @@ class _RegisterState extends State<Register> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {
-                          authController.verifyPhoneNumber(phoneTE.text);
-                          Get.to(Otp());
+                        onPressed: () async {
+                          await authController.whetherUserExist().then((value) {
+                            if (authController.userExistence == false) {
+                              authController
+                                  .verifyPhoneNumber(phoneTE.text)
+                                  .then((value) => Get.to(Otp()));
+                            } else {
+                              Get.snackbar(
+                                "User with this phone already exist",
+                                "try to signup instead",
+                              );
+                            }
+                          });
                         },
                         style: ButtonStyle(
                           foregroundColor:
@@ -212,7 +230,7 @@ class _RegisterState extends State<Register> {
                         child: Padding(
                           padding: EdgeInsets.all(14.0),
                           child: Text(
-                            'Register',
+                            'Get OTP',
                             style: TextStyle(
                                 fontSize: 22,
                                 fontFamily: tface,

@@ -1,5 +1,7 @@
+import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/models/travlog_model.dart';
 import 'package:CloudMotors/screens/Booking/booking_info.dart';
+import 'package:CloudMotors/widgets/custom_details_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,21 +22,50 @@ class DeepCleaningSD extends StatelessWidget {
         ),
       ),
       body: Container(
-        width: Get.width,
-        //  height: Get.height,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("TODO DEtails HERE"),
-              ElevatedButton(
+        height: Get.height,
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset(travlogs2[0].image),
+            Text(
+              "Service Include:",
+              style: TextStyle(fontSize: 26, color: Colors.black),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: deepCleaningDetails.length,
+                //physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, index) => Item(
+                  itemText: deepCleaningDetails[index],
+                ),
+              ),
+            ),
+            ConstrainedBox(
+              constraints: BoxConstraints(minWidth: double.infinity),
+              child: ElevatedButton(
                 onPressed: () {
-                  Get.to(BookingInfo(), arguments: [travlogs3[0]]);
+                  Get.to(BookingInfo(), arguments: [travlogs2[0]]);
                 },
-                child: Text("Book Now"),
-              )
-            ],
-          ),
+                child: Text(
+                  "Book",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 26,
+                  ),
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(mBlueColor),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

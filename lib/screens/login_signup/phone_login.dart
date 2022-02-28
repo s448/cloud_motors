@@ -3,6 +3,7 @@ import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/controllers/auth_controller.dart';
 import 'package:CloudMotors/screens/login_signup/otp.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
@@ -14,7 +15,7 @@ class PhoneLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      backgroundColor: Color.fromARGB(255, 187, 187, 187),
+      backgroundColor: mBackgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -32,8 +33,13 @@ class PhoneLogin extends StatelessWidget {
                 ),
               ),
             ),
+            SvgPicture.asset(
+              'assets/illustrations/4.svg',
+              width: Get.width,
+              height: Get.height / 2.4,
+            ),
             SizedBox(
-              height: Get.height * 0.3,
+              height: Get.height / 10,
             ),
             Container(
               padding: EdgeInsets.all(28),
@@ -45,9 +51,9 @@ class PhoneLogin extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    "Enter your phone number so as we verify it",
+                    "LOGIN",
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 26,
                       fontFamily: tface,
                       fontWeight: FontWeight.bold,
                       color: Colors.black38,
@@ -103,9 +109,17 @@ class PhoneLogin extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
-                        authController.verifyPhoneNumber(phoneLoginTE.text);
-                        Get.to(Otp());
+                      onPressed: () async {
+                        await authController.whetherUserExist();
+                        if (authController.userExistence == true) {
+                          authController
+                              .verifyPhoneNumber(phoneLoginTE.text)
+                              .then((value) => Get.to(Otp()));
+                        } else {
+                          Get.snackbar(
+                              "User with yhis phone number doesn\'t exist",
+                              "try signup instead");
+                        }
                       },
                       style: ButtonStyle(
                         foregroundColor:
@@ -122,7 +136,7 @@ class PhoneLogin extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.all(14.0),
                         child: Text(
-                          'Verify',
+                          'Get OTP code',
                           style: TextStyle(
                             fontSize: 22,
                             fontFamily: tface,

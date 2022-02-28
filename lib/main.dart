@@ -1,21 +1,16 @@
 import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/controllers/auth_controller.dart';
-import 'package:CloudMotors/screens/home_screen.dart';
 import 'package:CloudMotors/screens/login_signup/welcome.dart';
 import 'package:CloudMotors/screens/newBottomNarbar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-//const bool USE_EMULATOR = true;
-
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // if (USE_EMULATOR) {
-  //   await AuthController().connectToFirebaseEmulator();
-  // }
+  await AuthController().whetherUserExist();
   runApp(MyApp());
 }
 

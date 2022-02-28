@@ -20,7 +20,7 @@ class _BookingInfoState extends State<BookingInfo> {
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
         title: Text(
-          Get.arguments[0].name.toString(),
+          Get.arguments[0].name.toString() + " Booking",
           style: TextStyle(
               color: Colors.white,
               fontFamily: tface,

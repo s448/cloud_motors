@@ -105,3 +105,18 @@ List homeDetails = [
   "Paper mat",
   "Road test"
 ];
+
+List workShopDetails = [
+  "Clutch work",
+  "Suspension work",
+  "Wiring",
+  "Steering",
+  "Engine",
+  "Other"
+];
+List deepCleaningDetails = ["Full vehicle cleaning (Inside & Outside)"];
+List monthlyWashing = ["a 30 day plan for Morning wash"];
+List vehiclePickup = [
+  "Option to book service at specific date when we will pickup the vehicle from given location"
+];
+List emergencyPickup = ["Option to call us directly for emergency pickup"];

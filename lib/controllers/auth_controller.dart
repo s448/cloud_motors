@@ -1,4 +1,5 @@
-import 'package:CloudMotors/screens/home_screen.dart';
+import 'package:CloudMotors/screens/newBottomNarbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,10 +9,14 @@ class AuthController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String? name;
   String? email;
-  bool authenticated = true;
+  bool authenticated = false;
   String? phone;
   String code = "";
   String vID = "";
+  String userPhone = "";
+  String userName = "";
+  String userEmail = "";
+  bool userExistence = false;
   getName(val) {
     name = val;
   }
@@ -57,25 +62,28 @@ class AuthController extends GetxController {
     update();
   }
 
+  /*
+  1-signin
+  2-register
+  3-nav
+  */
   Future<void> signInWithPhoneNumber() async {
-    // print(verificationId);
-    // print(smsCode);
     try {
       AuthCredential credential =
           PhoneAuthProvider.credential(verificationId: vID, smsCode: code);
       await FirebaseAuth.instance
           .signInWithCredential(credential)
-          .then(
-            (value) => Get.offAll(
-              () => HomeScreen(),
-            ),
-          )
+          .then((value) {
+            value.user!.updateDisplayName(name);
+            value.user!.updateEmail(email!);
+          })
           .then(
             (value) => authenticated = true,
-          );
+          )
+          .then((value) => Get.off(newBottomNavrbar()));
     } catch (e) {
       Get.snackbar(
-        "ERROR While Sign up",
+        "ERROR",
         e.toString(),
         duration: const Duration(
           seconds: 10,
@@ -88,4 +96,62 @@ class AuthController extends GetxController {
   Future<void> signOut() async {
     FirebaseAuth.instance.signOut();
   }
+
+  CollectionReference reference =
+      FirebaseFirestore.instance.collection("users");
+
+  Future<void> registerNewUser() async {
+    try {
+      await reference.add({
+        'name': name ?? "none",
+        'email': email ?? "none@none.none",
+        'phone': phone ?? "00000000",
+      });
+    } catch (e) {
+      Get.snackbar("Registration error", e.toString(),
+          duration: Duration(seconds: 7));
+    }
+  }
+
+  Future<void> whetherUserExist() async {
+    await reference.where('phone', isEqualTo: phone).get().then((value) {
+      value.docs.forEach((element) {
+        if (element.exists) {
+          print("exist");
+          userExistence = true;
+          update();
+        } else {
+          print("dont exist");
+          userExistence = false;
+          update();
+        }
+      });
+    });
+    print(userExistence);
+    update();
+  }
+
+  Future<void> getUserData() async {
+    userPhone = FirebaseAuth.instance.currentUser!.phoneNumber.toString();
+    userEmail = FirebaseAuth.instance.currentUser!.email.toString();
+    userName = FirebaseAuth.instance.currentUser!.displayName.toString();
+  }
 }
+
+
+//sign up
+/*
+1-check existence
+2-verify
+3-create
+4-signin
+5-nav to home
+*/
+
+//login
+/*
+1-check existence
+2-verify]
+3-login
+4-nav to home
+*/

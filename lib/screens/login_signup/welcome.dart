@@ -5,6 +5,7 @@ import 'package:CloudMotors/screens/login_signup/otp.dart';
 import 'package:CloudMotors/screens/login_signup/phone_login.dart';
 import 'package:CloudMotors/screens/newBottomNarbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'register.dart';
 import 'package:get/get.dart';
 
@@ -20,15 +21,11 @@ class _WelcomeState extends State<Welcome> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: mGreyColor,
+      backgroundColor: mBackgroundColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.asset(
-              'assets/images/illustration-1.png',
-              width: Get.width,
-              height: Get.height / 2,
-            ),
+            SvgPicture.asset('assets/illustrations/2.svg', fit: BoxFit.cover),
             SizedBox(
               height: 18,
             ),
@@ -39,19 +36,6 @@ class _WelcomeState extends State<Welcome> {
                 fontFamily: tface,
                 fontWeight: FontWeight.bold,
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Never a better time than now to start.",
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: tface,
-                fontWeight: FontWeight.w600,
-                color: Colors.black38,
-              ),
-              textAlign: TextAlign.center,
             ),
             SizedBox(
               height: 38,
@@ -80,7 +64,7 @@ class _WelcomeState extends State<Welcome> {
                   child: Padding(
                     padding: EdgeInsets.all(14.0),
                     child: Text(
-                      'Create Account',
+                      'REGISTER',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -92,7 +76,13 @@ class _WelcomeState extends State<Welcome> {
               ),
             ),
             SizedBox(
-              height: Get.height / 60,
+              child: Center(
+                child: Text(
+                  "Or",
+                  style: TextStyle(fontSize: 28, color: Colors.black),
+                ),
+              ),
+              height: Get.height / 30,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -116,7 +106,7 @@ class _WelcomeState extends State<Welcome> {
                   child: Padding(
                     padding: EdgeInsets.all(14.0),
                     child: Text(
-                      'Login',
+                      'LOGIN',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,

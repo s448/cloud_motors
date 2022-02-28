@@ -1,11 +1,16 @@
 import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/models/carousel_model.dart';
 import 'package:CloudMotors/models/travlog_model.dart';
-import 'package:CloudMotors/screens/Booking/booking_info.dart';
 import 'package:CloudMotors/screens/PickByCategory/garage_services.dart';
 import 'package:CloudMotors/screens/PickByCategory/home_service.dart';
 import 'package:CloudMotors/screens/PickByCategory/pickup_services.dart';
 import 'package:CloudMotors/screens/PickByCategory/washing_services.dart';
+import 'package:CloudMotors/screens/ServiceDatails/deep_cleaning_service_details.dart';
+import 'package:CloudMotors/screens/ServiceDatails/emergency_pickup_service_details.dart';
+import 'package:CloudMotors/screens/ServiceDatails/home_service_details.dart';
+import 'package:CloudMotors/screens/ServiceDatails/monthly_washing_service_details.dart';
+import 'package:CloudMotors/screens/ServiceDatails/vehicle_pickup_service_details.dart';
+import 'package:CloudMotors/screens/ServiceDatails/workshop_service_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
@@ -41,31 +46,18 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: mBackgroundColor,
-        title: Text(
-          "Cloud Motors",
-          style: TextStyle(
-            fontSize: 30,
-            fontFamily: tface,
-            color: mBlueColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        elevation: 0,
-      ),
       backgroundColor: mBackgroundColor,
       body: Container(
         child: ListView(
           physics: ClampingScrollPhysics(),
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 16, bottom: 24),
+              padding: EdgeInsets.all(8.0),
               child: Center(
-                child: Text(
-                  "Have a look at our services",
-                  style: mTitleStyle,
+                child: Image.asset(
+                  'assets/logo.png',
+                  width: Get.width,
+                  height: Get.height / 8.3,
                 ),
               ),
             ),
@@ -389,7 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Get.to(BookingInfo(), arguments: [travlogs1[index]]);
+                      index == 0 ? Get.to(HomeSD()) : Get.to(WorkshopSD());
                       //print(travlogs1[index].name);
                     },
                     child: Container(
@@ -455,7 +447,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Get.to(BookingInfo(), arguments: [travlogs2[index]]);
+                      index == 0
+                          ? Get.to(DeepCleaningSD())
+                          : Get.to((MonthlyWashingSD()));
                       //print(travlogs1[index].name);
                     },
                     child: Container(
@@ -520,7 +514,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      Get.to(BookingInfo(), arguments: [travlogs3[index]]);
+                      index == 0
+                          ? Get.to(VehiclePickUpSD())
+                          : Get.to(EmergencyPickUpSD());
                       //print(travlogs1[index].name);
                     },
                     child: Container(

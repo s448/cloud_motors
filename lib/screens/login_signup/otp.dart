@@ -2,6 +2,7 @@ import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class Otp extends StatefulWidget {
@@ -20,7 +21,7 @@ class _OtpState extends State<Otp> {
       init: authController,
       builder: (controller) => Scaffold(
         resizeToAvoidBottomInset: true,
-        backgroundColor: mGreyColor,
+        backgroundColor: mBackgroundColor,
         body: SingleChildScrollView(
             child: Column(
           children: [
@@ -46,8 +47,8 @@ class _OtpState extends State<Otp> {
                 color: mTitleColor,
                 shape: BoxShape.circle,
               ),
-              child: Image.asset(
-                'assets/images/illustration-3.png',
+              child: SvgPicture.asset(
+                'assets/illustrations/3.svg',
                 width: Get.width,
                 height: Get.height / 3,
               ),
@@ -56,20 +57,9 @@ class _OtpState extends State<Otp> {
               height: 24,
             ),
             Text(
-              'Verification',
-              style: TextStyle(
-                fontSize: 22,
-                fontFamily: tface,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
               "Enter your OTP code",
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 24,
                 fontFamily: tface,
                 fontWeight: FontWeight.bold,
                 color: Colors.black38,
@@ -108,6 +98,7 @@ class _OtpState extends State<Otp> {
                             readOnly: false,
                             textAlign: TextAlign.center,
                             style: TextStyle(
+                              letterSpacing: 3,
                               wordSpacing: 2,
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -116,6 +107,9 @@ class _OtpState extends State<Otp> {
                             maxLength: 6,
                             decoration: InputDecoration(
                               hintText: "Enter the 6 digits code",
+                              hintStyle: TextStyle(
+                                letterSpacing: 1,
+                              ),
                               counter: Offstage(),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -138,6 +132,10 @@ class _OtpState extends State<Otp> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
+                        if (authController.userExistence == false) {
+                          authController.registerNewUser();
+                          print("Its sign in -----");
+                        }
                         authController.signInWithPhoneNumber();
                       },
                       style: ButtonStyle(
@@ -155,7 +153,7 @@ class _OtpState extends State<Otp> {
                       child: Padding(
                         padding: EdgeInsets.all(14.0),
                         child: Text(
-                          'Verify',
+                          'Proceed',
                           style: TextStyle(
                             fontSize: 22,
                             fontFamily: tface,
@@ -174,7 +172,7 @@ class _OtpState extends State<Otp> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Didn't you receive the code?",
+                  "Didn't you receive OTP code",
                   style: TextStyle(
                     fontSize: 12,
                     fontFamily: tface,
@@ -186,15 +184,25 @@ class _OtpState extends State<Otp> {
                 SizedBox(
                   width: 12,
                 ),
-                Text(
-                  "Resend New Code",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: tface,
-                    fontWeight: FontWeight.bold,
-                    color: mTitleColor,
+                InkWell(
+                  onTap: (() {
+                    authController.verifyPhoneNumber(authController.phone);
+                    Get.snackbar(
+                      "We Sent another code",
+                      "please wait for a minute",
+                      snackPosition: SnackPosition.BOTTOM,
+                    );
+                  }),
+                  child: Text(
+                    "Cleck her",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: tface,
+                      fontWeight: FontWeight.bold,
+                      color: mTitleColor,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: Get.height / 10,
