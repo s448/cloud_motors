@@ -25,7 +25,12 @@ class _WelcomeState extends State<Welcome> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SvgPicture.asset('assets/illustrations/2.svg', fit: BoxFit.cover),
+            SizedBox(height: Get.height / 20),
+            SvgPicture.asset(
+              'assets/illustrations/2.svg',
+              width: Get.width * 0.60,
+              height: Get.height / 4,
+            ),
             SizedBox(
               height: 18,
             ),
@@ -82,7 +87,7 @@ class _WelcomeState extends State<Welcome> {
                   style: TextStyle(fontSize: 28, color: Colors.black),
                 ),
               ),
-              height: Get.height / 30,
+              height: Get.height / 15,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -95,8 +100,8 @@ class _WelcomeState extends State<Welcome> {
                   style: ButtonStyle(
                     foregroundColor:
                         MaterialStateProperty.all<Color>(mTitleColor),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Color.fromARGB(255, 255, 255, 255)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10.0),

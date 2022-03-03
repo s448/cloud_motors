@@ -1,7 +1,7 @@
 import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/constants/constant_style.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class myBookings extends StatefulWidget {
   const myBookings({Key? key}) : super(key: key);
@@ -11,31 +11,272 @@ class myBookings extends StatefulWidget {
 }
 
 class _myBookingsState extends State<myBookings> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _tabController = TabController(vsync: this, length: 2);
+  // }
+
+  // @override
+  // void dispose() {
+  //   _tabController.dispose();
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: mFillColor,
-      body: Column(
-        children: [
-          SizedBox(
-            height: Get.height / 8,
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: [
+              Tab(
+                child: Text(
+                  "Processed",
+                  style: mTravelLogTitleStyle,
+                ),
+              ),
+              Tab(
+                child: Text(
+                  "Waiting",
+                  style: mTravelLogTitleStyle,
+                ),
+              )
+            ],
           ),
-          Image.asset(
-            'assets/images/nodata.png',
-            width: double.infinity,
-            height: Get.height / 2,
-          ),
-          Center(
-            child: Text(
-              "You have no bookings yet",
-              style: TextStyle(
-                fontFamily: tface,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+        ),
+        backgroundColor: mFillColor,
+        body: TabBarView(
+          children: [
+            Container(
+              padding: EdgeInsets.all(8.0),
+              color: mBackgroundColor,
+              child: Center(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('bookings')
+                      .where('view_status', isEqualTo: true)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text("Nothing to view"),
+                      );
+                    } else {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: Text("Nothing to view"),
+                        );
+                      }
+                      return ListView(
+                        children: snapshot.data!.docs
+                            .map((DocumentSnapshot document) {
+                          Map<String, dynamic> data =
+                              document.data()! as Map<String, dynamic>;
+                          return Row(
+                            children: [
+                              Flexible(
+                                  child: Container(
+                                margin: EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(6.0),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(6.0),
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      color: mTitleColor,
+                                    )),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Name : ",
+                                          style: mTitleStyle,
+                                        ),
+                                        Text(
+                                          data['name'],
+                                          style: mServiceSubtitleStyle,
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Address : ",
+                                          style: mTitleStyle,
+                                        ),
+                                        Text(
+                                          data['address'],
+                                          style: mServiceSubtitleStyle,
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Phone : ",
+                                          style: mTitleStyle,
+                                        ),
+                                        Text(
+                                          data['phone'],
+                                          style: mServiceSubtitleStyle,
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Car Model : ",
+                                          style: mTitleStyle,
+                                        ),
+                                        Text(
+                                          data['car_model'],
+                                          style: mServiceSubtitleStyle,
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Date : ",
+                                          style: mTitleStyle,
+                                        ),
+                                        Text(
+                                          data['date'],
+                                          style: mServiceSubtitleStyle,
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ))
+                            ],
+                          );
+                        }).toList(),
+                      );
+                    }
+                  },
+                ),
               ),
             ),
-          )
-        ],
+            Container(
+              padding: EdgeInsets.all(8.0),
+              color: mBackgroundColor,
+              child: Center(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('bookings')
+                      .where('view_status', isEqualTo: false)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text("Nothing to view"),
+                      );
+                    } else {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: Text("Nothing to view"),
+                        );
+                      }
+                      return ListView(
+                        children: snapshot.data!.docs
+                            .map((DocumentSnapshot document) {
+                          Map<String, dynamic> data =
+                              document.data()! as Map<String, dynamic>;
+                          return Row(
+                            children: [
+                              Flexible(
+                                  child: Container(
+                                margin: EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(6.0),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(6.0),
+                                    color: Colors.white,
+                                    border: Border.all(
+                                      color: mTitleColor,
+                                    )),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Name : ",
+                                          style: mTitleStyle,
+                                        ),
+                                        Text(
+                                          data['name'],
+                                          style: mServiceSubtitleStyle,
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Address : ",
+                                          style: mTitleStyle,
+                                        ),
+                                        Text(
+                                          data['address'],
+                                          style: mServiceSubtitleStyle,
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Phone : ",
+                                          style: mTitleStyle,
+                                        ),
+                                        Text(
+                                          data['phone'],
+                                          style: mServiceSubtitleStyle,
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Car Model : ",
+                                          style: mTitleStyle,
+                                        ),
+                                        Text(
+                                          data['car_model'],
+                                          style: mServiceSubtitleStyle,
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Date : ",
+                                          style: mTitleStyle,
+                                        ),
+                                        Text(
+                                          data['date'],
+                                          style: mServiceSubtitleStyle,
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ))
+                            ],
+                          );
+                        }).toList(),
+                      );
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,11 +1,9 @@
 import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/controllers/auth_controller.dart';
-import 'package:CloudMotors/screens/newBottomNarbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
 import 'otp.dart';
 
 class Register extends StatefulWidget {
@@ -20,7 +18,7 @@ class _RegisterState extends State<Register> {
   TextEditingController emailTE = TextEditingController();
   TextEditingController nameTE = TextEditingController();
 
-  AuthController authController = Get.put(AuthController(), permanent: true);
+  AuthController authController = Get.put(AuthController(), permanent: false);
 
   @override
   Widget build(BuildContext context) {
@@ -49,16 +47,10 @@ class _RegisterState extends State<Register> {
               SizedBox(
                 height: 18,
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: mTitleColor,
-                  shape: BoxShape.circle,
-                ),
-                child: SvgPicture.asset(
-                  'assets/illustrations/1.svg',
-                  width: Get.width,
-                  height: Get.height / 3.5,
-                ),
+              SvgPicture.asset(
+                'assets/illustrations/1.svg',
+                width: Get.width * 0.80,
+                height: Get.height / 3,
               ),
               SizedBox(
                 height: Get.height / 50,
@@ -92,7 +84,7 @@ class _RegisterState extends State<Register> {
               Container(
                 padding: EdgeInsets.all(28),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: mBackgroundColor,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -107,6 +99,8 @@ class _RegisterState extends State<Register> {
                         fontWeight: FontWeight.bold,
                       ),
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                         hintText: "Your name",
                         hintStyle: TextStyle(fontFamily: tface, fontSize: 18),
                         enabledBorder: OutlineInputBorder(
@@ -135,6 +129,8 @@ class _RegisterState extends State<Register> {
                         fontWeight: FontWeight.bold,
                       ),
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                         hintText: "Email adress",
                         hintStyle: TextStyle(
                           fontFamily: tface,
@@ -168,6 +164,8 @@ class _RegisterState extends State<Register> {
                         fontWeight: FontWeight.bold,
                       ),
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
                         hintText: "Phone Number",
                         hintStyle: TextStyle(
                           fontFamily: tface,
@@ -202,18 +200,20 @@ class _RegisterState extends State<Register> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () async {
-                          await authController.whetherUserExist().then((value) {
-                            if (authController.userExistence == false) {
-                              authController
-                                  .verifyPhoneNumber(phoneTE.text)
-                                  .then((value) => Get.to(Otp()));
-                            } else {
-                              Get.snackbar(
-                                "User with this phone already exist",
-                                "try to signup instead",
-                              );
-                            }
-                          });
+                          await authController.signUpCheck().then(
+                            (value) {
+                              if (authController.signupCheck != true) {
+                                authController
+                                    .verifyPhoneNumber(phoneTE.text)
+                                    .then((value) => Get.to(Otp()));
+                              } else {
+                                Get.snackbar(
+                                  "User with this phone already exist",
+                                  "try to signup instead",
+                                );
+                              }
+                            },
+                          ).then((value) => authController.clearBuffer);
                         },
                         style: ButtonStyle(
                           foregroundColor:

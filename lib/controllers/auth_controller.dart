@@ -1,22 +1,24 @@
 import 'package:CloudMotors/screens/newBottomNarbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   String? name;
   String? email;
-  bool authenticated = false;
+  bool authenticated = true;
   String? phone;
   String code = "";
   String vID = "";
   String userPhone = "";
   String userName = "";
   String userEmail = "";
-  bool userExistence = false;
+  bool? loginCheck;
+  bool? signupCheck;
+  String? bookingDate;
+
   getName(val) {
     name = val;
   }
@@ -36,14 +38,14 @@ class AuthController extends GetxController {
   Future<void> verifyPhoneNumber(phone) async {
     PhoneVerificationCompleted verificationCompleted =
         (PhoneAuthCredential phoneAuthCredential) async {
-      Get.snackbar("Verification Completed", "");
+      //  Get.snackbar("Verification Completed", "");
     };
     PhoneVerificationFailed verificationFailed = (FirebaseAuthException) {
       Get.snackbar("Verification Failed", FirebaseAuthException.toString());
     };
     PhoneCodeSent codeSent = (verificationId, forceResendingToken) {
       vID = verificationId;
-      Get.snackbar("Verification Code Sent", "");
+      // Get.snackbar("Verification Code Sent", "");
       update();
     };
     PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout = (verificationId) {
@@ -68,20 +70,24 @@ class AuthController extends GetxController {
   3-nav
   */
   Future<void> signInWithPhoneNumber() async {
+    print(code);
     try {
       AuthCredential credential =
           PhoneAuthProvider.credential(verificationId: vID, smsCode: code);
       await FirebaseAuth.instance
           .signInWithCredential(credential)
           .then((value) {
-            value.user!.updateDisplayName(name);
-            value.user!.updateEmail(email!);
+            if (signupCheck != true) {
+              value.user!.updateDisplayName(name ?? "unknown");
+              value.user!.updateEmail(email ?? "unknown");
+            }
           })
           .then(
             (value) => authenticated = true,
           )
           .then((value) => Get.off(newBottomNavrbar()));
     } catch (e) {
+      print(e.toString());
       Get.snackbar(
         "ERROR",
         e.toString(),
@@ -103,9 +109,9 @@ class AuthController extends GetxController {
   Future<void> registerNewUser() async {
     try {
       await reference.add({
-        'name': name ?? "none",
-        'email': email ?? "none@none.none",
-        'phone': phone ?? "00000000",
+        'name': name ?? "unknown",
+        'email': email ?? "unknown",
+        'phone': phone ?? "unknown",
       });
     } catch (e) {
       Get.snackbar("Registration error", e.toString(),
@@ -113,21 +119,37 @@ class AuthController extends GetxController {
     }
   }
 
-  Future<void> whetherUserExist() async {
+  Future<void> LoginCheck() async {
+    print("phone ???????????????" + phone.toString());
     await reference.where('phone', isEqualTo: phone).get().then((value) {
       value.docs.forEach((element) {
-        if (element.exists) {
-          print("exist");
-          userExistence = true;
-          update();
-        } else {
-          print("dont exist");
-          userExistence = false;
-          update();
-        }
+        loginCheck = element.exists;
+        update();
       });
     });
-    print(userExistence);
+    print(loginCheck);
+    loginCheck = null;
+    print(loginCheck);
+    update();
+  }
+
+  Future<void> signUpCheck() async {
+    print("phone ???????????????" + phone.toString());
+    await reference.where('phone', isEqualTo: phone).get().then((value) {
+      value.docs.forEach((element) {
+        signupCheck = element.exists;
+        update();
+      });
+    });
+    print(loginCheck);
+    loginCheck = null;
+    print(loginCheck);
+    update();
+  }
+
+  clearBuffer() {
+    signupCheck = null;
+    loginCheck = null;
     update();
   }
 

@@ -1,6 +1,7 @@
 import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/controllers/auth_controller.dart';
+import 'package:CloudMotors/controllers/url_launch_controller.dart';
 import 'package:CloudMotors/screens/login_signup/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,8 @@ class ProfilePage extends StatelessWidget {
   //     ),
   //   );
   // }
-
+  String appUrl =
+      "https://play.google.com/store/apps/details?id=com.saidmo.cloudmotors";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,8 +96,8 @@ class ProfilePage extends StatelessWidget {
                           color: mTitleColor,
                         ),
                         Text(
-                          FirebaseAuth.instance.currentUser!.displayName
-                              .toString(),
+                          FirebaseAuth.instance.currentUser!.displayName ??
+                              "Unknown".toString(),
                           style: TextStyle(
                             color: mTitleColor,
                             fontFamily: tface,
@@ -120,7 +122,7 @@ class ProfilePage extends StatelessWidget {
                           color: mTitleColor,
                         ),
                         Text(
-                          FirebaseAuth.instance.currentUser!.email.toString(),
+                          FirebaseAuth.instance.currentUser!.email ?? "Unknown",
                           style: TextStyle(
                             color: mTitleColor,
                             fontSize: 22,
@@ -145,8 +147,8 @@ class ProfilePage extends StatelessWidget {
                             color: mTitleColor,
                           ),
                           Text(
-                            FirebaseAuth.instance.currentUser!.phoneNumber
-                                .toString(),
+                            FirebaseAuth.instance.currentUser!.phoneNumber ??
+                                "Unknown",
                             style: TextStyle(
                               color: mTitleColor,
                               fontSize: 22,
@@ -157,6 +159,41 @@ class ProfilePage extends StatelessWidget {
                         ],
                       )),
                 ],
+              ),
+            ),
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: Get.width / 1.1),
+              child: ElevatedButton(
+                onPressed: () {
+                  AuthController()
+                      .signOut()
+                      .then((value) => AuthController().authenticated = false)
+                      .then((value) => Get.offAll(Welcome()));
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Log out",
+                      style: TextStyle(
+                          fontFamily: tface,
+                          fontSize: 26,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(
+                      width: 3,
+                    ),
+                    Icon(Icons.logout)
+                  ],
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
               ),
             ),
             Row(
@@ -191,17 +228,33 @@ class ProfilePage extends StatelessWidget {
                 ),
               ],
             ),
-            CustomInkWell(
-              imagePass: 'assets/icons/report.png',
-              title: "Report a problem",
-            ),
-            CustomInkWell(
-              imagePass: 'assets/icons/rate.png',
-              title: "Rate the app",
-            ),
-            CustomInkWell(
-              imagePass: 'assets/icons/share.png',
-              title: "Share the app",
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomInkWell(
+                  imagePass: 'report',
+                  title: "Report a problem",
+                  function: () {
+                    UrlLaiuncherController().launchURL("url");
+                  },
+                ),
+                CustomInkWell(
+                  imagePass: 'rate',
+                  title: "Rate the app",
+                  function: () {
+                    UrlLaiuncherController().launchURL(appUrl);
+                  },
+                ),
+                CustomInkWell(
+                  imagePass: 'share',
+                  title: "Share the app",
+                  function: () {
+                    UrlLaiuncherController().share(
+                      appUrl,
+                    );
+                  },
+                ),
+              ],
             ),
             SizedBox(
               height: Get.height / 27,
@@ -211,41 +264,6 @@ class ProfilePage extends StatelessWidget {
                 "Version : 1.0.0",
                 style: TextStyle(
                     color: mGreyColor, fontFamily: tface, fontSize: 18),
-              ),
-            ),
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: Get.width / 1.1),
-              child: ElevatedButton(
-                onPressed: () {
-                  AuthController()
-                      .signOut()
-                      .then((value) => AuthController().authenticated = false)
-                      .then((value) => Get.offAll(Welcome()));
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Sign out",
-                      style: TextStyle(
-                          fontFamily: tface,
-                          fontSize: 26,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    SizedBox(
-                      width: 3,
-                    ),
-                    Icon(Icons.logout)
-                  ],
-                ),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
-                ),
               ),
             ),
           ],
@@ -258,9 +276,11 @@ class ProfilePage extends StatelessWidget {
 class CustomInkWell extends StatelessWidget {
   final String title;
   final String imagePass;
+  final VoidCallback? function;
   const CustomInkWell({
     Key? key,
     required this.title,
+    required this.function,
     required this.imagePass,
   }) : super(key: key);
 
@@ -270,36 +290,35 @@ class CustomInkWell extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(10),
         padding: EdgeInsets.symmetric(horizontal: 4.0),
-        width: Get.width,
-        height: 37,
+        width: Get.width / 4,
+        height: Get.height / 4.8,
         decoration: BoxDecoration(
-          color: mBlueColor,
-          border: Border.all(color: Colors.black),
+          color: Colors.white,
+          border: Border.all(color: mTitleColor),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/icons/$imagePass.png',
+              width: Get.width / 10,
+              height: Get.height / 10,
+            ),
             Text(
               title,
-              style: TextStyle(
-                //fontFamily: 'myRiadh',
-                color: Colors.white,
-                fontFamily: tface,
+              style: const TextStyle(
+                fontFamily: 'myRiadh',
+                color: mTitleColor,
+                fontWeight: FontWeight.bold,
                 fontSize: 22,
               ),
-            ),
-            Image.asset(
-              imagePass,
-              width: Get.width / 15,
-              height: Get.height / 15,
             ),
           ],
         ),
       ),
-      // onTap: () {
-      //   Get.to(Reports());
-      // }),
+      onTap: function,
     );
   }
 }

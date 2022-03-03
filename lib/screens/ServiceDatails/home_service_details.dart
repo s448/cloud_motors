@@ -26,8 +26,12 @@ class HomeSD extends StatelessWidget {
         padding: EdgeInsets.all(8.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(travlogs1[0].image),
+            SizedBox(
+              height: 10,
+            ),
             Text(
               "Service Include:",
               style: TextStyle(fontSize: 26, color: Colors.black),

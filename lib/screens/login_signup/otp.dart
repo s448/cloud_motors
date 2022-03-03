@@ -49,8 +49,8 @@ class _OtpState extends State<Otp> {
               ),
               child: SvgPicture.asset(
                 'assets/illustrations/3.svg',
-                width: Get.width,
-                height: Get.height / 3,
+                width: Get.width * 0.60,
+                height: Get.height / 4,
               ),
             ),
             SizedBox(
@@ -90,9 +90,11 @@ class _OtpState extends State<Otp> {
                             controller: valTE,
                             autofocus: true,
                             onChanged: (value) {
-                              authController.code = value;
+                              authController.getCode(valTE.text);
                               authController.update();
-                              print(authController.code);
+                              // authController.code = valTE.text;
+                              // authController.update();
+                              // print(authController.code);
                             },
                             showCursor: false,
                             readOnly: false,
@@ -132,11 +134,12 @@ class _OtpState extends State<Otp> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (authController.userExistence == false) {
+                        if (authController.signupCheck != true) {
                           authController.registerNewUser();
                           print("Its sign in -----");
                         }
                         authController.signInWithPhoneNumber();
+                        print(authController.phone);
                       },
                       style: ButtonStyle(
                         foregroundColor:

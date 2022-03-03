@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final String hint;
   final VoidCallback function;
   final Icon icon;
+  final TextEditingController controller;
   final TextInputType keyB;
   const CustomTextField({
     required this.keyB,
@@ -14,11 +15,13 @@ class CustomTextField extends StatelessWidget {
     required this.hint,
     required this.function,
     required this.icon,
+    required this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       onChanged: (val) {
         function;
       },

@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 // ignore: must_be_immutable
 class PhoneLogin extends StatelessWidget {
   PhoneLogin({Key? key}) : super(key: key);
-  AuthController authController = Get.put(AuthController(), permanent: true);
+  AuthController authController = Get.put(AuthController(), permanent: false);
   TextEditingController phoneLoginTE = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,8 @@ class PhoneLogin extends StatelessWidget {
             ),
             SvgPicture.asset(
               'assets/illustrations/4.svg',
-              width: Get.width,
-              height: Get.height / 2.4,
+              width: Get.width * 0.60,
+              height: Get.height / 4,
             ),
             SizedBox(
               height: Get.height / 10,
@@ -45,7 +45,7 @@ class PhoneLogin extends StatelessWidget {
               padding: EdgeInsets.all(28),
               margin: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: mBackgroundColor,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
@@ -76,6 +76,8 @@ class PhoneLogin extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                     decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      filled: true,
                       hintText: "Phone Number",
                       hintStyle: TextStyle(
                         fontFamily: tface,
@@ -110,14 +112,14 @@ class PhoneLogin extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () async {
-                        await authController.whetherUserExist();
-                        if (authController.userExistence == true) {
+                        await authController.LoginCheck();
+                        if (authController.loginCheck == true) {
                           authController
                               .verifyPhoneNumber(phoneLoginTE.text)
                               .then((value) => Get.to(Otp()));
                         } else {
                           Get.snackbar(
-                              "User with yhis phone number doesn\'t exist",
+                              "User with this phone number doesn\'t exist",
                               "try signup instead");
                         }
                       },

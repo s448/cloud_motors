@@ -21,10 +21,14 @@ dependencies:
   firebase_auth: ^3.3.7
   firebase_auth_web: ^3.3.7
   cloud_firestore: ^3.1.9
+  url_launcher: ^6.0.20
+  url_launcher_web: ^2.0.9
+  flutter_share: ^2.0.0
+  syncfusion_flutter_calendar: ^19.4.54
 
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/logo.png
+  image: assets/splash.png
   android: true
   ios: true
 
