@@ -3,11 +3,18 @@ import 'package:CloudMotors/models/travlog_model.dart';
 import 'package:CloudMotors/screens/Booking/booking_info.dart';
 import 'package:CloudMotors/widgets/custom_details_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
 
-class MonthlyWashingSD extends StatelessWidget {
+class MonthlyWashingSD extends StatefulWidget {
   const MonthlyWashingSD({Key? key}) : super(key: key);
 
+  @override
+  State<MonthlyWashingSD> createState() => _MonthlyWashingSDState();
+}
+
+class _MonthlyWashingSDState extends State<MonthlyWashingSD> {
+  int current = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +35,33 @@ class MonthlyWashingSD extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(travlogs2[1].image),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: 190,
+              child: Swiper(
+                onIndexChanged: (index) {
+                  setState(() {
+                    current = index;
+                  });
+                },
+                autoplay: true,
+                layout: SwiperLayout.DEFAULT,
+                itemCount: 3,
+                itemBuilder: (BuildContext context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/swiper/mornong/${detailsSwiper[current]}.jpg',
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
             SizedBox(
               height: 10,
             ),
@@ -50,7 +83,7 @@ class MonthlyWashingSD extends StatelessWidget {
               constraints: BoxConstraints(minWidth: double.infinity),
               child: ElevatedButton(
                 onPressed: () {
-                  Get.to(BookingInfo(), arguments: [travlogs2[1]]);
+                  Get.to(BookingInfo(), arguments: [299, 399, travlogs2[1]]);
                 },
                 child: Text(
                   "Book",

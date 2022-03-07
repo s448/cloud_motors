@@ -382,7 +382,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return InkWell(
                     onTap: () {
                       index == 0 ? Get.to(HomeSD()) : Get.to(WorkshopSD());
-                      //print(travlogs1[index].name);
+                      ////print(travlogs1[index].name);
                     },
                     child: Container(
                       padding: EdgeInsets.only(right: 16),
@@ -450,7 +450,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       index == 0
                           ? Get.to(DeepCleaningSD())
                           : Get.to((MonthlyWashingSD()));
-                      //print(travlogs1[index].name);
+                      ////print(travlogs1[index].name);
                     },
                     child: Container(
                       padding: EdgeInsets.only(right: 16),
@@ -517,7 +517,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       index == 0
                           ? Get.to(VehiclePickUpSD())
                           : Get.to(EmergencyPickUpSD());
-                      //print(travlogs1[index].name);
+                      ////print(travlogs1[index].name);
                     },
                     child: Container(
                       padding: EdgeInsets.only(right: 16),

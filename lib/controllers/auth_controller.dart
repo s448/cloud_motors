@@ -1,14 +1,23 @@
 import 'package:CloudMotors/screens/newBottomNarbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AuthController extends GetxController {
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  GlobalKey<FormState> authFormKey = GlobalKey<FormState>();
 
+  @override
+  void onInit() {
+    super.onInit();
+    //print(box.read('key'));
+  }
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final box = GetStorage();
   String? name;
   String? email;
-  bool authenticated = true;
   String? phone;
   String code = "";
   String vID = "";
@@ -49,11 +58,11 @@ class AuthController extends GetxController {
       update();
     };
     PhoneCodeAutoRetrievalTimeout codeAutoRetrievalTimeout = (verificationId) {
-      Get.snackbar("Verification TimeOUT", "");
+      Get.snackbar("Verification Timeout", "");
     };
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
-          phoneNumber: "+20 $phone",
+          phoneNumber: "+91 $phone",
           verificationCompleted: verificationCompleted,
           verificationFailed: verificationFailed,
           codeSent: codeSent,
@@ -70,7 +79,7 @@ class AuthController extends GetxController {
   3-nav
   */
   Future<void> signInWithPhoneNumber() async {
-    print(code);
+    //print(code);
     try {
       AuthCredential credential =
           PhoneAuthProvider.credential(verificationId: vID, smsCode: code);
@@ -83,11 +92,11 @@ class AuthController extends GetxController {
             }
           })
           .then(
-            (value) => authenticated = true,
+            (value) => box.write('key', true),
           )
           .then((value) => Get.off(newBottomNavrbar()));
     } catch (e) {
-      print(e.toString());
+      //print(e.toString());
       Get.snackbar(
         "ERROR",
         e.toString(),
@@ -120,30 +129,28 @@ class AuthController extends GetxController {
   }
 
   Future<void> LoginCheck() async {
-    print("phone ???????????????" + phone.toString());
+    //print("phone ???????????????" + phone.toString());
     await reference.where('phone', isEqualTo: phone).get().then((value) {
       value.docs.forEach((element) {
         loginCheck = element.exists;
         update();
       });
     });
-    print(loginCheck);
-    loginCheck = null;
-    print(loginCheck);
+    //print(loginCheck);
     update();
   }
 
   Future<void> signUpCheck() async {
-    print("phone ???????????????" + phone.toString());
+    //print("phone ???????????????" + phone.toString());
     await reference.where('phone', isEqualTo: phone).get().then((value) {
       value.docs.forEach((element) {
         signupCheck = element.exists;
         update();
       });
     });
-    print(loginCheck);
+    //print(loginCheck);
     loginCheck = null;
-    print(loginCheck);
+    //print(loginCheck);
     update();
   }
 
@@ -151,12 +158,6 @@ class AuthController extends GetxController {
     signupCheck = null;
     loginCheck = null;
     update();
-  }
-
-  Future<void> getUserData() async {
-    userPhone = FirebaseAuth.instance.currentUser!.phoneNumber.toString();
-    userEmail = FirebaseAuth.instance.currentUser!.email.toString();
-    userName = FirebaseAuth.instance.currentUser!.displayName.toString();
   }
 }
 

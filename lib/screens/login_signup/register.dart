@@ -81,165 +81,197 @@ class _RegisterState extends State<Register> {
               SizedBox(
                 height: 28,
               ),
-              Container(
-                padding: EdgeInsets.all(28),
-                decoration: BoxDecoration(
-                  color: mBackgroundColor,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      onChanged: ((value) {
-                        authController.getName(value);
-                      }),
-                      keyboardType: TextInputType.name,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: "Your name",
-                        hintStyle: TextStyle(fontFamily: tface, fontSize: 18),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12),
-                            borderRadius: BorderRadius.circular(10)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12),
-                            borderRadius: BorderRadius.circular(10)),
-                        prefixIcon: Icon(
-                          Icons.person,
-                          color: Colors.green,
-                          size: 32,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: Get.height / 50,
-                    ),
-                    TextFormField(
-                      onChanged: (value) {
-                        authController.getEmail(value);
-                      },
-                      keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: "Email adress",
-                        hintStyle: TextStyle(
-                          fontFamily: tface,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12),
-                            borderRadius: BorderRadius.circular(10)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12),
-                            borderRadius: BorderRadius.circular(10)),
-                        prefixIcon: Icon(
-                          Icons.email,
-                          color: Colors.green,
-                          size: 32,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: Get.height / 50,
-                    ),
-                    TextFormField(
-                      controller: phoneTE,
-                      onChanged: ((value) {
-                        authController.getPhone(value);
-                        print(authController.phone);
-                        authController.update();
-                      }),
-                      keyboardType: TextInputType.phone,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: "Phone Number",
-                        hintStyle: TextStyle(
-                          fontFamily: tface,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12),
-                            borderRadius: BorderRadius.circular(10)),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12),
-                            borderRadius: BorderRadius.circular(10)),
-                        prefix: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8),
-                          child: Text(
-                            '(+91)',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        prefixIcon: Icon(
-                          Icons.phone,
-                          color: Colors.green,
-                          size: 32,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 22,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          await authController.signUpCheck().then(
-                            (value) {
-                              if (authController.signupCheck != true) {
-                                authController
-                                    .verifyPhoneNumber(phoneTE.text)
-                                    .then((value) => Get.to(Otp()));
-                              } else {
-                                Get.snackbar(
-                                  "User with this phone already exist",
-                                  "try to signup instead",
-                                );
-                              }
-                            },
-                          ).then((value) => authController.clearBuffer);
+              Form(
+                key: authController.authFormKey,
+                child: Container(
+                  padding: EdgeInsets.all(28),
+                  decoration: BoxDecoration(
+                    color: mBackgroundColor,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please fill this required field";
+                          }
+                          return null;
                         },
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(mTitleColor),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                          ),
+                        onChanged: ((value) {
+                          authController.getName(value);
+                        }),
+                        keyboardType: TextInputType.name,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.all(14.0),
-                          child: Text(
-                            'Get OTP',
-                            style: TextStyle(
-                                fontSize: 22,
-                                fontFamily: tface,
-                                fontWeight: FontWeight.bold),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: "Your name",
+                          hintStyle: TextStyle(fontFamily: tface, fontSize: 18),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(10)),
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: Colors.green,
+                            size: 32,
                           ),
                         ),
                       ),
-                    )
-                  ],
+                      SizedBox(
+                        height: Get.height / 50,
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please fill this required field";
+                          } else if (!value.isEmail) {
+                            return "Please enter a valid email";
+                          }
+                          return null;
+                        },
+                        controller: emailTE,
+                        onChanged: (value) {
+                          authController.getEmail(value);
+                          //print(authController.email);
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: "Email adress",
+                          hintStyle: TextStyle(
+                            fontFamily: tface,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(10)),
+                          prefixIcon: Icon(
+                            Icons.email,
+                            color: Colors.green,
+                            size: 32,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Get.height / 50,
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please fill this required field";
+                          }
+                          return null;
+                        },
+                        controller: phoneTE,
+                        onChanged: ((value) {
+                          authController.getPhone(value);
+                          //print(authController.phone);
+                          authController.update();
+                        }),
+                        keyboardType: TextInputType.phone,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: "Phone Number",
+                          hintStyle: TextStyle(
+                            fontFamily: tface,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(10)),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(10)),
+                          prefix: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            child: Text(
+                              '(+91)',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          prefixIcon: Icon(
+                            Icons.phone,
+                            color: Colors.green,
+                            size: 32,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 22,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            final isValid = authController
+                                .authFormKey.currentState!
+                                .validate();
+                            if (!isValid) {
+                              return;
+                            } else {
+                              await authController.signUpCheck().then(
+                                (value) {
+                                  if (authController.signupCheck != true) {
+                                    authController
+                                        .verifyPhoneNumber(phoneTE.text)
+                                        .then((value) => Get.to(Otp()));
+                                  } else {
+                                    Get.snackbar(
+                                      "User with this phone already exist",
+                                      "try to signup instead",
+                                    );
+                                  }
+                                },
+                              ).then((value) => authController.clearBuffer);
+                            }
+                          },
+                          style: ButtonStyle(
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(mTitleColor),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(14.0),
+                            child: Text(
+                              'Get OTP',
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontFamily: tface,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],

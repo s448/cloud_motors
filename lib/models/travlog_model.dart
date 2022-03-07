@@ -112,7 +112,8 @@ List workShopDetails = [
   "Wiring",
   "Steering",
   "Engine",
-  "Other"
+  "Other",
+  "Charges will be calculated at workshop according to service provided"
 ];
 List deepCleaningDetails = ["Full vehicle cleaning (Inside & Outside)"];
 List monthlyWashing = ["a 30 day plan for Morning wash"];
@@ -120,3 +121,5 @@ List vehiclePickup = [
   "Option to book service at specific date when we will pickup the vehicle from given location"
 ];
 List emergencyPickup = ["Option to call us directly for emergency pickup"];
+
+List detailsSwiper = ['1', '2', '3'];

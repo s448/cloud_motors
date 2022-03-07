@@ -1,6 +1,7 @@
 import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class myBookings extends StatefulWidget {
@@ -11,24 +12,14 @@ class myBookings extends StatefulWidget {
 }
 
 class _myBookingsState extends State<myBookings> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _tabController = TabController(vsync: this, length: 2);
-  // }
-
-  // @override
-  // void dispose() {
-  //   _tabController.dispose();
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: null,
           bottom: TabBar(
             tabs: [
               Tab(
@@ -56,6 +47,12 @@ class _myBookingsState extends State<myBookings> {
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('bookings')
+                      .where(
+                        'phone',
+                        isEqualTo:
+                            FirebaseAuth.instance.currentUser!.phoneNumber ??
+                                "null",
+                      )
                       .where('view_status', isEqualTo: true)
                       .snapshots(),
                   builder: (context, snapshot) {
@@ -133,7 +130,7 @@ class _myBookingsState extends State<myBookings> {
                                           style: mTitleStyle,
                                         ),
                                         Text(
-                                          data['car_model'],
+                                          data['car_model_type'],
                                           style: mServiceSubtitleStyle,
                                         )
                                       ],
@@ -169,6 +166,12 @@ class _myBookingsState extends State<myBookings> {
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('bookings')
+                      .where(
+                        'phone',
+                        isEqualTo:
+                            FirebaseAuth.instance.currentUser!.phoneNumber ??
+                                "null",
+                      )
                       .where('view_status', isEqualTo: false)
                       .snapshots(),
                   builder: (context, snapshot) {
@@ -246,7 +249,7 @@ class _myBookingsState extends State<myBookings> {
                                           style: mTitleStyle,
                                         ),
                                         Text(
-                                          data['car_model'],
+                                          data['car_model_type'],
                                           style: mServiceSubtitleStyle,
                                         )
                                       ],

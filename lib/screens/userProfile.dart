@@ -6,31 +6,9 @@ import 'package:CloudMotors/screens/login_signup/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ProfilePage extends StatelessWidget {
-  // Widget textfield({@required hintText}) {
-  //   return Material(
-  //     elevation: 4,
-  //     shadowColor: mBlueColor,
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.circular(10),
-  //     ),
-  //     child: TextField(
-  //       decoration: InputDecoration(
-  //           hintText: hintText,
-  //           hintStyle: TextStyle(
-  //             letterSpacing: 2,
-  //             color: Colors.black54,
-  //             fontWeight: FontWeight.bold,
-  //           ),
-  //           fillColor: mBlueColor,
-  //           filled: true,
-  //           border: OutlineInputBorder(
-  //               borderRadius: BorderRadius.circular(10.0),
-  //               borderSide: BorderSide.none)),
-  //     ),
-  //   );
-  // }
   String appUrl =
       "https://play.google.com/store/apps/details?id=com.saidmo.cloudmotors";
   @override
@@ -167,7 +145,8 @@ class ProfilePage extends StatelessWidget {
                 onPressed: () {
                   AuthController()
                       .signOut()
-                      .then((value) => AuthController().authenticated = false)
+                      .then((value) => AuthController().box.write('key', false))
+                      .then((value) => GetStorage().write('key', false))
                       .then((value) => Get.offAll(Welcome()));
                 },
                 child: Row(

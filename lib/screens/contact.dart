@@ -1,6 +1,9 @@
+import 'package:CloudMotors/controllers/auth_controller.dart';
 import 'package:CloudMotors/controllers/url_launch_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import '../constants/color_constant.dart';
 import '../constants/constant_style.dart';
 
@@ -31,6 +34,16 @@ class _contactPageState extends State<contactPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Center(
+                  child: Image.asset(
+                    'assets/logo.png',
+                    width: Get.width,
+                    height: Get.height / 6,
+                  ),
+                ),
+              ),
               Container(
                 width: Get.width,
                 padding: EdgeInsets.all(6),
@@ -43,7 +56,11 @@ class _contactPageState extends State<contactPage> {
                     ConstrainedBox(
                       constraints: BoxConstraints(minWidth: Get.width / 3),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          const number = '+911122334455'; //set the number here
+                          bool? res =
+                              await FlutterPhoneDirectCaller.callNumber(number);
+                        },
                         child: Text("Call us"),
                         style: ButtonStyle(
                           backgroundColor:
@@ -60,7 +77,9 @@ class _contactPageState extends State<contactPage> {
                     ConstrainedBox(
                       constraints: BoxConstraints(minWidth: Get.width / 3),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          UrlLaiuncherController().launceEmail();
+                        },
                         child: Text("Mail us"),
                         style: ButtonStyle(
                           backgroundColor:
@@ -121,7 +140,7 @@ class _contactPageState extends State<contactPage> {
                       margin: EdgeInsets.all(10),
                       padding: EdgeInsets.symmetric(horizontal: 4.0),
                       width: Get.width / 4,
-                      height: Get.height / 6,
+                      height: Get.height / 5,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(color: mTitleColor),
@@ -156,7 +175,7 @@ class _contactPageState extends State<contactPage> {
                       margin: EdgeInsets.all(10),
                       padding: EdgeInsets.symmetric(horizontal: 4.0),
                       width: Get.width / 4,
-                      height: Get.height / 6,
+                      height: Get.height / 5,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(color: mTitleColor),
@@ -191,7 +210,7 @@ class _contactPageState extends State<contactPage> {
                       margin: EdgeInsets.all(10),
                       padding: EdgeInsets.symmetric(horizontal: 4.0),
                       width: Get.width / 4,
-                      height: Get.height / 6,
+                      height: Get.height / 5,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(color: mTitleColor),

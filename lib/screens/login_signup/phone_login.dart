@@ -67,7 +67,7 @@ class PhoneLogin extends StatelessWidget {
                     controller: phoneLoginTE,
                     onChanged: ((value) {
                       authController.getPhone(value);
-                      print(authController.phone);
+                      //print(authController.phone);
                       authController.update();
                     }),
                     keyboardType: TextInputType.number,
@@ -156,99 +156,3 @@ class PhoneLogin extends StatelessWidget {
     );
   }
 }
-
-
-/*
-Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Enter your phone number so as we verify it",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: tface,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black38,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(
-                    height: Get.height / 20,
-                  ),
-                  TextFormField(
-                    controller: phoneLoginTE,
-                    onChanged: ((value) {
-                      authController.getPhone(value);
-                      print(authController.phone);
-                      authController.update();
-                    }),
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    decoration: InputDecoration(
-                      hintText: "Phone Number",
-                      hintStyle: TextStyle(
-                        fontFamily: tface,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12),
-                          borderRadius: BorderRadius.circular(10)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12),
-                          borderRadius: BorderRadius.circular(10)),
-                      prefix: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-                        child: Text(
-                          '(+91)',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.phone,
-                        color: Colors.green,
-                        size: 32,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: Get.height / 20,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        authController.verifyPhoneNumber(phoneLoginTE.text);
-                      },
-                      style: ButtonStyle(
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(mTitleColor),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(14.0),
-                        child: Text(
-                          'Verify',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: tface,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
- */

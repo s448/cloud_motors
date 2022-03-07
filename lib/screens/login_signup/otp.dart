@@ -4,6 +4,7 @@ import 'package:CloudMotors/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:pinput/pinput.dart';
 
 class Otp extends StatefulWidget {
   const Otp({Key? key}) : super(key: key);
@@ -86,43 +87,53 @@ class _OtpState extends State<Otp> {
                         width: Get.width * 0.75,
                         child: AspectRatio(
                           aspectRatio: 1.0,
-                          child: TextField(
-                            controller: valTE,
+                          child: Pinput(
                             autofocus: true,
-                            onChanged: (value) {
+                            controller: valTE,
+                            length: 6,
+                            onCompleted: (pin) {
                               authController.getCode(valTE.text);
+                              //print(valTE.text);
                               authController.update();
-                              // authController.code = valTE.text;
-                              // authController.update();
-                              // print(authController.code);
                             },
-                            showCursor: false,
-                            readOnly: false,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              letterSpacing: 3,
-                              wordSpacing: 2,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            keyboardType: TextInputType.number,
-                            maxLength: 6,
-                            decoration: InputDecoration(
-                              hintText: "Enter the 6 digits code",
-                              hintStyle: TextStyle(
-                                letterSpacing: 1,
-                              ),
-                              counter: Offstage(),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 2, color: Colors.black12),
-                                  borderRadius: BorderRadius.circular(12)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(width: 2, color: mTitleColor),
-                                  borderRadius: BorderRadius.circular(12)),
-                            ),
                           ),
+                          // child: TextField(
+                          //   controller: valTE,
+                          //   autofocus: true,
+                          //   onChanged: (value) {
+                          // authController.getCode(valTE.text);
+                          // authController.update();
+                          //     // authController.code = valTE.text;
+                          //     // authController.update();
+                          //     // //print(authController.code);
+                          //   },
+                          //   showCursor: false,
+                          //   readOnly: false,
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(
+                          //     letterSpacing: 3,
+                          //     wordSpacing: 2,
+                          //     fontSize: 24,
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          //   keyboardType: TextInputType.number,
+                          //   maxLength: 6,
+                          //   decoration: InputDecoration(
+                          //     hintText: "Enter the 6 digits code",
+                          //     hintStyle: TextStyle(
+                          //       letterSpacing: 1,
+                          //     ),
+                          //     counter: Offstage(),
+                          //     enabledBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(
+                          //             width: 2, color: Colors.black12),
+                          //         borderRadius: BorderRadius.circular(12)),
+                          //     focusedBorder: OutlineInputBorder(
+                          //         borderSide:
+                          //             BorderSide(width: 2, color: mTitleColor),
+                          //         borderRadius: BorderRadius.circular(12)),
+                          //   ),
+                          // ),
                         ),
                       )
                     ],
@@ -136,10 +147,10 @@ class _OtpState extends State<Otp> {
                       onPressed: () {
                         if (authController.signupCheck != true) {
                           authController.registerNewUser();
-                          print("Its sign in -----");
+                          //print("Its sign in -----");
                         }
                         authController.signInWithPhoneNumber();
-                        print(authController.phone);
+                        //print(authController.phone);
                       },
                       style: ButtonStyle(
                         foregroundColor:
@@ -197,7 +208,7 @@ class _OtpState extends State<Otp> {
                     );
                   }),
                   child: Text(
-                    "Cleck her",
+                    "Click her",
                     style: TextStyle(
                       fontSize: 14,
                       fontFamily: tface,

@@ -4,7 +4,6 @@ import 'package:CloudMotors/screens/home_screen.dart';
 import 'package:CloudMotors/screens/myBookings.dart';
 import 'package:CloudMotors/screens/userProfile.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class newBottomNavrbar extends StatefulWidget {
   const newBottomNavrbar({Key? key}) : super(key: key);

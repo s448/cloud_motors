@@ -1,6 +1,7 @@
 import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/constants/custom_button.dart';
+import 'package:CloudMotors/controllers/auth_controller.dart';
 import 'package:CloudMotors/controllers/booking_controller.dart';
 import 'package:CloudMotors/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class BookingInfo extends StatefulWidget {
 }
 
 class _BookingInfoState extends State<BookingInfo> {
+  //radio
+
   TextEditingController nameTE = TextEditingController();
   TextEditingController phoneTE = TextEditingController();
   TextEditingController adressTE = TextEditingController();
@@ -22,7 +25,7 @@ class _BookingInfoState extends State<BookingInfo> {
   TextEditingController carModelTE = TextEditingController();
   BookingController bookingController = Get.put(
     BookingController(),
-    permanent: true,
+    permanent: false,
   );
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class _BookingInfoState extends State<BookingInfo> {
             backgroundColor: Colors.grey.shade300,
             appBar: AppBar(
               title: Text(
-                Get.arguments[0].name.toString() + " Booking",
+                Get.arguments[2].name.toString() + " Booking",
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: tface,
@@ -43,288 +46,384 @@ class _BookingInfoState extends State<BookingInfo> {
             ),
             body: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: Get.height / 16,
-                  ),
-                  TextFormField(
-                    controller: nameTE,
-                    onChanged: (val) {
-                      bookingController.getName(nameTE.text);
-                    },
-                    keyboardType: TextInputType.text,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+              child: Form(
+                key: bookingController.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: Get.height / 16,
                     ),
-                    cursorColor: mTitleColor,
-                    decoration: InputDecoration(
-                      hintText: 'Your Name',
-                      //  fillColor: Colors.white,
-                      //iconColor: mTitleColor,
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintStyle: TextStyle(fontFamily: tface, fontSize: 18),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12),
-                          borderRadius: BorderRadius.circular(10)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12),
-                          borderRadius: BorderRadius.circular(10)),
-                      prefixIcon: Icon(Icons.person, color: mTitleColor),
+                    // TextFormField(
+                    //   controller: nameTE,
+                    //   onChanged: (val) {
+                    //     bookingController.getName(nameTE.text);
+                    //   },
+                    //   keyboardType: TextInputType.text,
+                    //   style: TextStyle(
+                    //     fontSize: 18,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    //   cursorColor: mTitleColor,
+                    //   decoration: InputDecoration(
+                    //     hintText: 'Your Name',
+                    //     //  fillColor: Colors.white,
+                    //     //iconColor: mTitleColor,
+                    //     fillColor: Colors.white,
+                    //     filled: true,
+                    //     hintStyle: TextStyle(fontFamily: tface, fontSize: 18),
+                    //     enabledBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(color: Colors.black12),
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //     focusedBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(color: Colors.black12),
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //     prefixIcon: Icon(Icons.person, color: mTitleColor),
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: Get.height / 50,
+                    // ),
+                    // TextFormField(
+                    //   controller: phoneTE,
+                    //   onChanged: (val) {
+                    //     bookingController.getPhone(phoneTE.text);
+                    //   },
+                    //   keyboardType: TextInputType.phone,
+                    //   style: TextStyle(
+                    //     fontSize: 18,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    //   cursorColor: mTitleColor,
+                    //   decoration: InputDecoration(
+                    //     hintText: 'Your Phone',
+                    //     fillColor: Colors.white,
+                    //     filled: true,
+                    //     hintStyle: TextStyle(fontFamily: tface, fontSize: 18),
+                    //     enabledBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(color: Colors.black12),
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //     focusedBorder: OutlineInputBorder(
+                    //         borderSide: BorderSide(color: Colors.black12),
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //     prefixIcon: Icon(Icons.phone, color: mTitleColor),
+                    //   ),
+                    // ),
+                    SizedBox(
+                      height: Get.height / 50,
                     ),
-                  ),
-                  SizedBox(
-                    height: Get.height / 50,
-                  ),
-                  TextFormField(
-                    controller: phoneTE,
-                    onChanged: (val) {
-                      bookingController.getPhone(phoneTE.text);
-                    },
-                    keyboardType: TextInputType.phone,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      "Your Address",
+                      style: mTitleStyle,
                     ),
-                    cursorColor: mTitleColor,
-                    decoration: InputDecoration(
-                      hintText: 'Your Phone',
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintStyle: TextStyle(fontFamily: tface, fontSize: 18),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12),
-                          borderRadius: BorderRadius.circular(10)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12),
-                          borderRadius: BorderRadius.circular(10)),
-                      prefixIcon: Icon(Icons.phone, color: mTitleColor),
+                    TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Please fill this required field";
+                        }
+                        return null;
+                      },
+                      controller: adressTE,
+                      onChanged: (val) {
+                        bookingController.getAdress(adressTE.text);
+                      },
+                      keyboardType: TextInputType.text,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      cursorColor: mTitleColor,
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        hintStyle: TextStyle(fontFamily: tface, fontSize: 18),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black12),
+                            borderRadius: BorderRadius.circular(10)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black12),
+                            borderRadius: BorderRadius.circular(10)),
+                        // prefixIcon: Icon(
+                        //   Icons.location_city,
+                        //   color: mTitleColor,
+                        // ),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: Get.height / 50,
-                  ),
-                  TextFormField(
-                    controller: adressTE,
-                    onChanged: (val) {
-                      bookingController.getAdress(adressTE.text);
-                    },
-                    keyboardType: TextInputType.text,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                    SizedBox(
+                      height: Get.height / 25,
                     ),
-                    cursorColor: mTitleColor,
-                    decoration: InputDecoration(
-                      hintText: 'Your Address',
-                      fillColor: Colors.white,
-                      filled: true,
-                      hintStyle: TextStyle(fontFamily: tface, fontSize: 18),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12),
-                          borderRadius: BorderRadius.circular(10)),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black12),
-                          borderRadius: BorderRadius.circular(10)),
-                      prefixIcon: Icon(Icons.location_city, color: mTitleColor),
-                    ),
-                  ),
-                  SizedBox(
-                    height: Get.height / 25,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(6.0),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: mCardSubtitleColor),
-                        borderRadius: BorderRadius.circular(10.0)),
-                    child: Column(
-                      children: [
-                        Center(
-                          child: Text(
-                            "Car Information",
+                    Container(
+                      padding: EdgeInsets.all(6.0),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: mCardSubtitleColor),
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                            child: Text(
+                              "Car Details",
+                              style: mTitleStyle,
+                            ),
+                          ),
+                          SizedBox(
+                            height: Get.height / 50,
+                          ),
+                          Text(
+                            "Car name",
                             style: mTitleStyle,
                           ),
-                        ),
-                        SizedBox(
-                          height: Get.height / 50,
-                        ),
-                        TextField(
-                          controller: carNameTE,
-                          onChanged: (val) {
-                            bookingController.getCarName(carNameTE.text);
-                          },
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          cursorColor: mTitleColor,
-                          decoration: InputDecoration(
-                            hintText: "Car Name",
-                            fillColor: Colors.grey.shade300,
-                            filled: true,
-                            iconColor: mTitleColor,
-                            hintStyle: TextStyle(
-                                fontFamily: tface,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                            enabledBorder: OutlineInputBorder(
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please fill this required field";
+                              }
+                              return null;
+                            },
+                            controller: carNameTE,
+                            onChanged: (val) {
+                              bookingController.getCarName(carNameTE.text);
+                            },
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            cursorColor: mTitleColor,
+                            decoration: InputDecoration(
+                              //hintText: "Car Name",
+                              fillColor: Colors.grey.shade300,
+                              filled: true,
+                              iconColor: mTitleColor,
+                              hintStyle: TextStyle(
+                                  fontFamily: tface,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black12),
+                                  borderRadius: BorderRadius.circular(10)),
+                              focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black12),
-                                borderRadius: BorderRadius.circular(10)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black12),
-                              borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: Get.height / 50,
-                        ),
-                        TextField(
-                          controller: carModelTE,
-                          onChanged: (val) {
-                            bookingController.getCarModel(carModelTE.text);
-                          },
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                          SizedBox(
+                            height: Get.height / 50,
                           ),
-                          cursorColor: mTitleColor,
-                          decoration: InputDecoration(
-                            hintText: "Car Model",
-                            fillColor: Colors.grey.shade300,
-                            filled: true,
-                            iconColor: mTitleColor,
-                            hintStyle: TextStyle(
-                                fontFamily: tface,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w500),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black12),
-                                borderRadius: BorderRadius.circular(10)),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.black12),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                          // TextField(
+                          //   controller: carModelTE,
+                          //   onChanged: (val) {
+                          //     bookingController.getCarModel(carModelTE.text);
+                          //   },
+                          //   style: TextStyle(
+                          //     fontSize: 18,
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          //   cursorColor: mTitleColor,
+                          //   decoration: InputDecoration(
+                          //     hintText: "Car Model",
+                          //     fillColor: Colors.grey.shade300,
+                          //     filled: true,
+                          //     iconColor: mTitleColor,
+                          //     hintStyle: TextStyle(
+                          //         fontFamily: tface,
+                          //         fontSize: 18,
+                          //         fontWeight: FontWeight.w500),
+                          //     enabledBorder: OutlineInputBorder(
+                          //         borderSide: BorderSide(color: Colors.black12),
+                          //         borderRadius: BorderRadius.circular(10)),
+                          //     focusedBorder: OutlineInputBorder(
+                          //       borderSide: BorderSide(color: Colors.black12),
+                          //       borderRadius: BorderRadius.circular(10),
+                          //     ),
+                          //   ),
+                          // ),
+                          SizedBox(
+                            height: Get.height / 25,
                           ),
-                        ),
-                        SizedBox(
-                          height: Get.height / 25,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: mTitleColor,
-                              width: 2.0,
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: mTitleColor,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(
+                                5.0,
+                              ),
                             ),
-                            borderRadius: BorderRadius.circular(
-                              5.0,
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Radio(
+                                      value: 0,
+                                      groupValue: bookingController.radio,
+                                      onChanged:
+                                          bookingController.selectCarModel,
+                                    ),
+                                    Text("Hatchback & sedan"),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Radio(
+                                      value: 1,
+                                      groupValue: bookingController.radio,
+                                      onChanged:
+                                          bookingController.selectCarModel,
+                                    ),
+                                    Text("Suv"),
+                                  ],
+                                )
+                              ],
                             ),
+                            // child: DropdownButtonHideUnderline(
+                            //   child: DropdownButton<String>(
+                            //     value: bookingController.dropdownValue,
+                            //     isExpanded: true,
+                            //     hint: Text("Select car type"),
+                            //     elevation: 16,
+                            //     style: const TextStyle(color: mBlueColor),
+                            //     onChanged: (String? newValue) {
+                            //       setState(() {
+                            //         bookingController.dropdownValue = newValue!;
+                            //       });
+                            //     },
+                            //     items: <String>[
+                            //       'Hatchback & Sedan',
+                            //       'Suv'
+                            //     ].map<DropdownMenuItem<String>>((String value) {
+                            //       return DropdownMenuItem<String>(
+                            //         value: value,
+                            //         child: Text(
+                            //           value,
+                            //           style: mServiceTitleStyle,
+                            //         ),
+                            //       );
+                            //     }).toList(),
+                            //   ),
+                            // ),
                           ),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              value: bookingController.dropdownValue,
-                              isExpanded: true,
-                              hint: Text("Select car type"),
-                              elevation: 16,
-                              style: const TextStyle(color: mBlueColor),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  bookingController.dropdownValue = newValue!;
-                                });
-                              },
-                              items: <String>[
-                                'Hatchback & Sedan',
-                                'Suv'
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(
-                                    value,
-                                    style: mServiceTitleStyle,
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: Get.height / 60,
-                  ),
-                  CutomButton(
-                    title: bookingController.date == null
-                        ? "Select Date"
-                        : "you selected ${DateFormat.yMMMd().format(DateTime.parse(bookingController.date!))}",
-                    function: () {
-                      showDatePicker(
-                        context: context,
-                        cancelText: "",
-                        selectableDayPredicate: (DateTime day) {
-                          return bookingController.dates.contains(day)
-                              ? false
-                              : true;
-                        },
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(2222),
-                      )
-                          .then(
-                            (date) => bookingController.getDate(
-                              date.toString(),
-                            ),
-                          )
-                          .then((value) => bookingController.update());
-                    },
-                  ),
-                  SizedBox(
-                    height: Get.height / 14,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            margin:
-                                const EdgeInsets.only(left: 10.0, right: 20.0),
-                            child: const Divider(
-                              thickness: 1,
-                              color: Colors.black,
-                              height: 36,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          "Payment Options".tr,
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        Expanded(
-                          child: Container(
-                            margin:
-                                const EdgeInsets.only(left: 20.0, right: 10.0),
-                            child: const Divider(
-                              thickness: 1,
-                              color: Colors.black,
-                              height: 36,
-                            ),
-                          ),
-                        ),
-                      ],
+                    SizedBox(
+                      height: Get.height / 60,
                     ),
-                  ),
-                  CutomButton(
-                      title: "Pay Cash",
+                    CutomButton(
+                      title: bookingController.date == null
+                          ? "Select Date"
+                          : "you selected ${DateFormat.yMMMd().format(DateTime.parse(bookingController.date!))}",
                       function: () {
-                        bookingController.bookService("Cash Payment");
-                      }),
-                  CutomButton(title: "Proceed to pay", function: () {}),
-                  SizedBox(
-                    height: Get.height / 60,
-                  ),
-                ],
+                        showDatePicker(
+                          context: context,
+                          cancelText: "",
+                          selectableDayPredicate: (DateTime day) {
+                            return bookingController.dates.contains(day)
+                                ? false
+                                : true;
+                          },
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2222),
+                        )
+                            .then(
+                              (date) => bookingController.getDate(
+                                date.toString(),
+                              ),
+                            )
+                            .then((value) => bookingController.update());
+                      },
+                    ),
+                    SizedBox(
+                      height: Get.height / 14,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  left: 10.0, right: 20.0),
+                              child: const Divider(
+                                thickness: 1,
+                                color: Colors.black,
+                                height: 36,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "Payment Options".tr,
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  left: 20.0, right: 10.0),
+                              child: const Divider(
+                                thickness: 1,
+                                color: Colors.black,
+                                height: 36,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    CutomButton(
+                        title: bookingController.price == null
+                            ? "Pay Cash"
+                            : "Pay Cash (${bookingController.price} INR)",
+                        function: () {
+                          if (bookingController.date == null) {
+                            Get.snackbar("Please Select a Date", "");
+                          } else if (bookingController.radio == null) {
+                            Get.snackbar("Please select a car model", "");
+                          } else {
+                            final isValid = bookingController
+                                .formKey.currentState!
+                                .validate();
+                            if (!isValid) {
+                              return;
+                            } else {
+                              bookingController.bookService("Cash Payment");
+                            }
+                          }
+                        }),
+                    Get.arguments[2].name == "Workshop Service"
+                        ? SizedBox(
+                            height: 0,
+                          )
+                        : CutomButton(
+                            title: bookingController.price == null
+                                ? "Proceed to pay"
+                                : "Proceed to pay (${bookingController.price} INR)",
+                            function: () {
+                              if (bookingController.date == null) {
+                                Get.snackbar("Please Select a Date", "");
+                              } else if (bookingController.radio == null) {
+                                Get.snackbar("Please select a car model", "");
+                              } else {
+                                final isValid = bookingController
+                                    .formKey.currentState!
+                                    .validate();
+                                if (!isValid) {
+                                  return;
+                                } else {
+                                  bookingController.dispatchPayment();
+                                }
+                              }
+                            },
+                          ),
+                    //   function: () {
+                    //     bookingController.dispatchPayment();
+                    //   },
+                    // ),
+                    SizedBox(
+                      height: Get.height / 60,
+                    ),
+                  ],
+                ),
               ),
             ),
           )),

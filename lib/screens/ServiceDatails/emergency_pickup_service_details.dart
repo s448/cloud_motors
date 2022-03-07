@@ -1,12 +1,17 @@
 import 'package:CloudMotors/constants/color_constant.dart';
+import 'package:CloudMotors/constants/constant_style.dart';
+import 'package:CloudMotors/controllers/booking_controller.dart';
 import 'package:CloudMotors/models/travlog_model.dart';
-import 'package:CloudMotors/screens/Booking/booking_info.dart';
-import 'package:CloudMotors/widgets/custom_details_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:get/get.dart';
 
 class EmergencyPickUpSD extends StatelessWidget {
   const EmergencyPickUpSD({Key? key}) : super(key: key);
+  _callNumber() async {
+    const number = '+911122334455'; //set the number here
+    bool? res = await FlutterPhoneDirectCaller.callNumber(number);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,17 +37,13 @@ class EmergencyPickUpSD extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Text(
-              "Service Include:",
-              style: TextStyle(fontSize: 26, color: Colors.black),
-            ),
             Expanded(
-              child: ListView.builder(
-                itemCount: emergencyPickup.length,
-                //physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, index) => Item(
-                  itemText: emergencyPickup[index],
+              child: Text(
+                "Option to call us directly for emergency pickup",
+                style: TextStyle(
+                  fontSize: 25,
+                  color: mSubtitleColor,
+                  fontFamily: tface,
                 ),
               ),
             ),
@@ -50,10 +51,10 @@ class EmergencyPickUpSD extends StatelessWidget {
               constraints: BoxConstraints(minWidth: double.infinity),
               child: ElevatedButton(
                 onPressed: () {
-                  Get.to(BookingInfo(), arguments: [travlogs3[1]]);
+                  _callNumber();
                 },
                 child: Text(
-                  "Book",
+                  "Call now",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 26,

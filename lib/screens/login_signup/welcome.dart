@@ -24,8 +24,10 @@ class _WelcomeState extends State<Welcome> {
       backgroundColor: mBackgroundColor,
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: Get.height / 20),
+            SizedBox(height: Get.height / 7),
             SvgPicture.asset(
               'assets/illustrations/2.svg',
               width: Get.width * 0.60,

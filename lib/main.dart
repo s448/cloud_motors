@@ -7,16 +7,29 @@ import 'package:CloudMotors/screens/newBottomNarbar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   BookingController().returnDayOffValue();
+  await GetStorage.init();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     newBottomNavrbar();
@@ -30,9 +43,11 @@ class MyApp extends StatelessWidget {
           color: mBlueColor,
         ),
       ),
-      //  home: newBottomNavrbar(),
       debugShowCheckedModeBanner: false,
-      home: AuthController().authenticated ? newBottomNavrbar() : Welcome(),
+      // home: newBottomNavrbar(),
+      home: AuthController().box.read('key') == true
+          ? newBottomNavrbar()
+          : Welcome(),
     );
   }
 }
