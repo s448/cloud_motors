@@ -145,9 +145,11 @@ class _OtpState extends State<Otp> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        if (authController.signupCheck != true) {
+                        authController.clearBuffer();
+                        authController.signUpCheck();
+                        if (authController.loginCheck != true) {
                           authController.registerNewUser();
-                          //print("Its sign in -----");
+                          //  print("Its sign in -----");
                         }
                         authController.signInWithPhoneNumber();
                         //print(authController.phone);

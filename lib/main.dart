@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      // home: newBottomNavrbar(),
+      //  home: newBottomNavrbar(),
       home: AuthController().box.read('key') == true
           ? newBottomNavrbar()
           : Welcome(),

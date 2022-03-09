@@ -62,11 +62,12 @@ class AuthController extends GetxController {
     };
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
-          phoneNumber: "+91 $phone",
-          verificationCompleted: verificationCompleted,
-          verificationFailed: verificationFailed,
-          codeSent: codeSent,
-          codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
+        phoneNumber: "+20 $phone",
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+      );
     } catch (e) {
       Get.snackbar("Verifivation ERROR", e.toString());
     }
@@ -87,8 +88,8 @@ class AuthController extends GetxController {
           .signInWithCredential(credential)
           .then((value) {
             if (signupCheck != true) {
-              value.user!.updateDisplayName(name ?? "unknown");
-              value.user!.updateEmail(email ?? "unknown");
+              FirebaseAuth.instance.currentUser!.updateDisplayName(name);
+              FirebaseAuth.instance.currentUser!.updateEmail(email!);
             }
           })
           .then(
@@ -120,7 +121,7 @@ class AuthController extends GetxController {
       await reference.add({
         'name': name ?? "unknown",
         'email': email ?? "unknown",
-        'phone': phone ?? "unknown",
+        'phone': "+20$phone",
       });
     } catch (e) {
       Get.snackbar("Registration error", e.toString(),
@@ -130,23 +131,25 @@ class AuthController extends GetxController {
 
   Future<void> LoginCheck() async {
     //print("phone ???????????????" + phone.toString());
-    await reference.where('phone', isEqualTo: phone).get().then((value) {
+    await reference.where('phone', isEqualTo: "+20$phone").get().then((value) {
       value.docs.forEach((element) {
         loginCheck = element.exists;
         update();
       });
     });
+    print("loginCheck $loginCheck");
     //print(loginCheck);
     update();
   }
 
   Future<void> signUpCheck() async {
     //print("phone ???????????????" + phone.toString());
-    await reference.where('phone', isEqualTo: phone).get().then((value) {
+    await reference.where('phone', isEqualTo: "+20$phone").get().then((value) {
       value.docs.forEach((element) {
         signupCheck = element.exists;
         update();
       });
+      print("signupCheck $signupCheck");
     });
     //print(loginCheck);
     loginCheck = null;
@@ -160,8 +163,6 @@ class AuthController extends GetxController {
     update();
   }
 }
-
-
 //sign up
 /*
 1-check existence

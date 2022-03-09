@@ -53,7 +53,7 @@ class _MonthlyWashingSDState extends State<MonthlyWashingSD> {
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
                         image: AssetImage(
-                          'assets/swiper/mornong/${detailsSwiper[current]}.jpg',
+                          'assets/swiper/morning/${detailsSwiper[current]}.jpg',
                         ),
                         fit: BoxFit.cover,
                       ),
