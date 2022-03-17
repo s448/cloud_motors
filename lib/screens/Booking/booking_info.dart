@@ -54,61 +54,6 @@ class _BookingInfoState extends State<BookingInfo> {
                     SizedBox(
                       height: Get.height / 16,
                     ),
-                    // TextFormField(
-                    //   controller: nameTE,
-                    //   onChanged: (val) {
-                    //     bookingController.getName(nameTE.text);
-                    //   },
-                    //   keyboardType: TextInputType.text,
-                    //   style: TextStyle(
-                    //     fontSize: 18,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    //   cursorColor: mTitleColor,
-                    //   decoration: InputDecoration(
-                    //     hintText: 'Your Name',
-                    //     //  fillColor: Colors.white,
-                    //     //iconColor: mTitleColor,
-                    //     fillColor: Colors.white,
-                    //     filled: true,
-                    //     hintStyle: TextStyle(fontFamily: tface, fontSize: 18),
-                    //     enabledBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(color: Colors.black12),
-                    //         borderRadius: BorderRadius.circular(10)),
-                    //     focusedBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(color: Colors.black12),
-                    //         borderRadius: BorderRadius.circular(10)),
-                    //     prefixIcon: Icon(Icons.person, color: mTitleColor),
-                    //   ),
-                    // ),
-                    // SizedBox(
-                    //   height: Get.height / 50,
-                    // ),
-                    // TextFormField(
-                    //   controller: phoneTE,
-                    //   onChanged: (val) {
-                    //     bookingController.getPhone(phoneTE.text);
-                    //   },
-                    //   keyboardType: TextInputType.phone,
-                    //   style: TextStyle(
-                    //     fontSize: 18,
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    //   cursorColor: mTitleColor,
-                    //   decoration: InputDecoration(
-                    //     hintText: 'Your Phone',
-                    //     fillColor: Colors.white,
-                    //     filled: true,
-                    //     hintStyle: TextStyle(fontFamily: tface, fontSize: 18),
-                    //     enabledBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(color: Colors.black12),
-                    //         borderRadius: BorderRadius.circular(10)),
-                    //     focusedBorder: OutlineInputBorder(
-                    //         borderSide: BorderSide(color: Colors.black12),
-                    //         borderRadius: BorderRadius.circular(10)),
-                    //     prefixIcon: Icon(Icons.phone, color: mTitleColor),
-                    //   ),
-                    // ),
                     SizedBox(
                       height: Get.height / 50,
                     ),
@@ -143,10 +88,6 @@ class _BookingInfoState extends State<BookingInfo> {
                         focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: Colors.black12),
                             borderRadius: BorderRadius.circular(10)),
-                        // prefixIcon: Icon(
-                        //   Icons.location_city,
-                        //   color: mTitleColor,
-                        // ),
                       ),
                     ),
                     SizedBox(
@@ -211,34 +152,6 @@ class _BookingInfoState extends State<BookingInfo> {
                           SizedBox(
                             height: Get.height / 50,
                           ),
-                          // TextField(
-                          //   controller: carModelTE,
-                          //   onChanged: (val) {
-                          //     bookingController.getCarModel(carModelTE.text);
-                          //   },
-                          //   style: TextStyle(
-                          //     fontSize: 18,
-                          //     fontWeight: FontWeight.bold,
-                          //   ),
-                          //   cursorColor: mTitleColor,
-                          //   decoration: InputDecoration(
-                          //     hintText: "Car Model",
-                          //     fillColor: Colors.grey.shade300,
-                          //     filled: true,
-                          //     iconColor: mTitleColor,
-                          //     hintStyle: TextStyle(
-                          //         fontFamily: tface,
-                          //         fontSize: 18,
-                          //         fontWeight: FontWeight.w500),
-                          //     enabledBorder: OutlineInputBorder(
-                          //         borderSide: BorderSide(color: Colors.black12),
-                          //         borderRadius: BorderRadius.circular(10)),
-                          //     focusedBorder: OutlineInputBorder(
-                          //       borderSide: BorderSide(color: Colors.black12),
-                          //       borderRadius: BorderRadius.circular(10),
-                          //     ),
-                          //   ),
-                          // ),
                           SizedBox(
                             height: Get.height / 25,
                           ),
@@ -279,32 +192,6 @@ class _BookingInfoState extends State<BookingInfo> {
                                 )
                               ],
                             ),
-                            // child: DropdownButtonHideUnderline(
-                            //   child: DropdownButton<String>(
-                            //     value: bookingController.dropdownValue,
-                            //     isExpanded: true,
-                            //     hint: Text("Select car type"),
-                            //     elevation: 16,
-                            //     style: const TextStyle(color: mBlueColor),
-                            //     onChanged: (String? newValue) {
-                            //       setState(() {
-                            //         bookingController.dropdownValue = newValue!;
-                            //       });
-                            //     },
-                            //     items: <String>[
-                            //       'Hatchback & Sedan',
-                            //       'Suv'
-                            //     ].map<DropdownMenuItem<String>>((String value) {
-                            //       return DropdownMenuItem<String>(
-                            //         value: value,
-                            //         child: Text(
-                            //           value,
-                            //           style: mServiceTitleStyle,
-                            //         ),
-                            //       );
-                            //     }).toList(),
-                            //   ),
-                            // ),
                           ),
                         ],
                       ),
@@ -327,7 +214,7 @@ class _BookingInfoState extends State<BookingInfo> {
                           },
                           initialDate: DateTime.now(),
                           firstDate: DateTime.now(),
-                          lastDate: DateTime(2222),
+                          lastDate: DateTime.now().add(Duration(days: 16)),
                         )
                             .then(
                               (date) => bookingController.getDate(
@@ -415,10 +302,6 @@ class _BookingInfoState extends State<BookingInfo> {
                               }
                             },
                           ),
-                    //   function: () {
-                    //     bookingController.dispatchPayment();
-                    //   },
-                    // ),
                     SizedBox(
                       height: Get.height / 60,
                     ),

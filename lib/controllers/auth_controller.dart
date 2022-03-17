@@ -62,7 +62,7 @@ class AuthController extends GetxController {
     };
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: "+20 $phone",
+        phoneNumber: "+91 $phone",
         verificationCompleted: verificationCompleted,
         verificationFailed: verificationFailed,
         codeSent: codeSent,
@@ -121,7 +121,7 @@ class AuthController extends GetxController {
       await reference.add({
         'name': name ?? "unknown",
         'email': email ?? "unknown",
-        'phone': "+20$phone",
+        'phone': "+91$phone",
       });
     } catch (e) {
       Get.snackbar("Registration error", e.toString(),
@@ -131,7 +131,7 @@ class AuthController extends GetxController {
 
   Future<void> LoginCheck() async {
     //print("phone ???????????????" + phone.toString());
-    await reference.where('phone', isEqualTo: "+20$phone").get().then((value) {
+    await reference.where('phone', isEqualTo: "+91$phone").get().then((value) {
       value.docs.forEach((element) {
         loginCheck = element.exists;
         update();
@@ -144,7 +144,7 @@ class AuthController extends GetxController {
 
   Future<void> signUpCheck() async {
     //print("phone ???????????????" + phone.toString());
-    await reference.where('phone', isEqualTo: "+20$phone").get().then((value) {
+    await reference.where('phone', isEqualTo: "+91$phone").get().then((value) {
       value.docs.forEach((element) {
         signupCheck = element.exists;
         update();

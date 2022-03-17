@@ -95,7 +95,7 @@ List homeDetails = [
   "Light check",
   "Coolant change",
   "Radiator Wash",
-  "Brake fluid" "topup",
+  "Brake fluid topup",
   "Battery water topup",
   "Suspension check",
   "Tyre check",
