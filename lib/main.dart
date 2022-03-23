@@ -3,6 +3,7 @@ import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/controllers/auth_controller.dart';
 import 'package:CloudMotors/controllers/booking_controller.dart';
 import 'package:CloudMotors/screens/Booking/booking_info.dart';
+import 'package:CloudMotors/screens/home_screen.dart';
 import 'package:CloudMotors/screens/login_signup/welcome.dart';
 import 'package:CloudMotors/screens/newBottomNarbar.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      // home: BookingInfo(),
+      //home: HomeScreen(),
       home: AuthController().box.read('key') == true
           ? newBottomNavrbar()
           : Welcome(),

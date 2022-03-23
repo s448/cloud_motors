@@ -1,9 +1,8 @@
 import 'package:CloudMotors/constants/color_constant.dart';
 import 'package:CloudMotors/constants/constant_style.dart';
 import 'package:CloudMotors/models/travlog_model.dart';
-import 'package:CloudMotors/screens/Booking/booking_info.dart';
-import 'package:CloudMotors/widgets/custom_details_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +14,11 @@ class VehiclePickUpSD extends StatefulWidget {
 }
 
 class _VehiclePickUpSDState extends State<VehiclePickUpSD> {
+  _callNumber() async {
+    const number = '+911122334455'; //set the number here
+    bool? res = await FlutterPhoneDirectCaller.callNumber(number);
+  }
+
   int current = 2;
   @override
   Widget build(BuildContext context) {
@@ -80,10 +84,10 @@ class _VehiclePickUpSDState extends State<VehiclePickUpSD> {
               constraints: BoxConstraints(minWidth: double.infinity),
               child: ElevatedButton(
                 onPressed: () {
-                  Get.to(BookingInfo(), arguments: [299, 299, travlogs3[0]]);
+                  _callNumber();
                 },
                 child: Text(
-                  "Book",
+                  "Call now",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 26,

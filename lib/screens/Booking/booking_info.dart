@@ -258,7 +258,8 @@ class _BookingInfoState extends State<BookingInfo> {
                       ),
                     ),
                     CutomButton(
-                        title: bookingController.price == null
+                        title: bookingController.price == null ||
+                                Get.arguments[2].name == "Workshop Service"
                             ? "Pay Cash"
                             : "Pay Cash (${bookingController.price} INR)",
                         function: () {
